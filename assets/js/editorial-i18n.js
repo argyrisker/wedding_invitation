@@ -157,3 +157,67 @@
     "reply.no": "Nedostajat ćete nam. Hvala što nam javljate."
   }
 }; Object.keys(copy).forEach(function(lang){Object.assign(window.I18N[lang],copy[lang]);}); })();
+
+/* Formal dress code and colour inspiration. */
+(function(){var copy={
+  "en": {
+    "dress.title": "Dress code",
+    "dress.formal": "Formal",
+    "dress.intro": "Dress up with us for a day of celebration. Let these colours inspire your look.",
+    "dress.palette": "Our colour palette",
+    "dress.note": "Similar shades are very welcome — there is no need to match these colours exactly.",
+    "dress.aegean": "Aegean Blue",
+    "dress.dusty": "Dusty Blue",
+    "dress.terracotta": "Light Terracotta",
+    "dress.champagne": "Champagne",
+    "dress.ivory": "Ivory",
+    "dress.cream": "Cream",
+    "dress.sage": "Sage Green",
+    "dress.mint": "Mint"
+  },
+  "el": {
+    "dress.title": "Ενδυματολογικός κώδικας",
+    "dress.formal": "Επίσημη ενδυμασία",
+    "dress.intro": "Φορέστε τα καλά σας και ελάτε να γιορτάσουμε μαζί. Αφήστε αυτά τα χρώματα να σας εμπνεύσουν.",
+    "dress.palette": "Η χρωματική μας παλέτα",
+    "dress.note": "Οι παρόμοιες αποχρώσεις είναι εξίσου ευπρόσδεκτες — δεν χρειάζεται να ταιριάζουν ακριβώς με τα δείγματα.",
+    "dress.aegean": "Μπλε του Αιγαίου",
+    "dress.dusty": "Απαλό μπλε",
+    "dress.terracotta": "Ανοιχτή τερακότα",
+    "dress.champagne": "Σαμπανί",
+    "dress.ivory": "Ιβουάρ",
+    "dress.cream": "Κρεμ",
+    "dress.sage": "Πράσινο του φασκόμηλου",
+    "dress.mint": "Μέντα"
+  },
+  "sv": {
+    "dress.title": "Klädsel",
+    "dress.formal": "Formell klädsel",
+    "dress.intro": "Klä upp dig och fira med oss. Låt de här färgerna inspirera din klädsel.",
+    "dress.palette": "Vår färgpalett",
+    "dress.note": "Liknande nyanser är varmt välkomna — färgerna behöver inte matcha proverna exakt.",
+    "dress.aegean": "Egeiskt blått",
+    "dress.dusty": "Dämpat blått",
+    "dress.terracotta": "Ljus terrakotta",
+    "dress.champagne": "Champagne",
+    "dress.ivory": "Elfenben",
+    "dress.cream": "Gräddvit",
+    "dress.sage": "Salviagrönt",
+    "dress.mint": "Mint"
+  },
+  "hr": {
+    "dress.title": "Pravila odijevanja",
+    "dress.formal": "Svečana odjeća",
+    "dress.intro": "Odjenite se svečano i proslavite s nama. Neka vas ove boje nadahnu pri odabiru odjeće.",
+    "dress.palette": "Naša paleta boja",
+    "dress.note": "Slične nijanse također su dobrodošle — boje ne moraju biti potpuno jednake uzorcima.",
+    "dress.aegean": "Egejska plava",
+    "dress.dusty": "Prigušena plava",
+    "dress.terracotta": "Svijetla terakota",
+    "dress.champagne": "Šampanj",
+    "dress.ivory": "Bjelokost",
+    "dress.cream": "Krem",
+    "dress.sage": "Zelena kadulje",
+    "dress.mint": "Menta"
+  }
+};Object.keys(copy).forEach(function(lang){Object.assign(window.I18N[lang],copy[lang]);});})();

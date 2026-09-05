@@ -1,0 +1,43 @@
+/* Dress guidance: colour samples are inspiration, not an exact-match requirement. */
+.dress-code>.eyebrow{color:var(--brick);margin-bottom:14px}.dress-code h2{margin-bottom:18px}.dress-intro{font-size:17px;line-height:1.8;max-width:650px}.palette-title{font:400 16px var(--sans);margin:34px 0 20px}.dress-palette{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:25px 18px;list-style:none;margin:0;padding:0}.dress-palette li{min-width:0}.colour-swatch{display:block;aspect-ratio:1.35;border-radius:50% 50% 3px 3px;background:var(--swatch);border:1px solid rgba(15,36,64,.13)}.colour-name{display:block;font-size:14px;line-height:1.5;margin-top:10px;overflow-wrap:break-word}.palette-note{font-size:16px;line-height:1.8;margin-top:30px;padding-left:17px;border-left:2px solid var(--gold);color:var(--muted)}.questions-block{border-top:1px solid var(--line);padding-top:35px;margin-top:40px}.questions-block h2{font-size:2rem}.hero>*,.section>*,.event>*,.rsvp-paper,.contact-body,.chapter-controls>*{min-width:0}.choice span{min-width:0;overflow-wrap:break-word}.hero__caption{overflow-wrap:break-word}
+
+/* Switch earlier for tablets and landscape phones, before columns get cramped. */
+@media screen and (max-width:900px){
+  html{scroll-padding-top:145px}
+  .masthead{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;padding:10px 20px 7px;min-height:0}
+  .languages{justify-self:end;margin:0;gap:0}.lang{min-height:44px;min-width:44px;padding:8px}
+  .section-nav{grid-column:1/-1;order:initial;justify-content:center;flex-wrap:wrap;gap:0 24px;border-top:1px solid var(--line);padding:3px 0 0;width:100%}
+  .section-nav a{display:flex;align-items:center;justify-content:center;min-height:44px;font-size:14px;text-align:center;line-height:1.35}
+  .hero{grid-template-columns:minmax(0,1fr);min-height:0;gap:35px;padding:40px 30px}
+  .hero__copy{padding:0}.hero .eyebrow{margin-bottom:22px}.names{font-size:clamp(3rem,10vw,6.5rem)}
+  .hero__art{width:100%;max-width:520px;margin:0 auto;padding:0}.hero__arch{min-height:0;aspect-ratio:4/5}
+  .hero__side{position:static;writing-mode:horizontal-tb;white-space:normal;transform:none;margin-top:20px;padding:0 10px;text-align:center;font-size:12px;line-height:1.7;letter-spacing:.12em}
+  .hero__caption{left:28px;right:28px;bottom:30px}.discover{margin-top:28px}
+  .section{padding:60px 30px}.letter,.programme,.contact-section,.rsvp-section{grid-template-columns:minmax(0,1fr);gap:30px}
+  .rsvp-intro .section-label{margin-bottom:20px}.rsvp-intro h2{font-size:clamp(2.5rem,8vw,4.5rem)}
+  .rsvp-welcome,.deadline{max-width:none}.rsvp-monogram{display:none}.rsvp-paper{width:100%;padding:32px}
+  .chapter,.events.is-enhanced .event{min-height:0}.chapter{padding-bottom:30px}.chapter-tabs button{min-height:64px}
+  .day-tabs button{min-width:0}.day-tools{flex-wrap:wrap}.day-tools .btn{max-width:100%;white-space:normal}
+  .reply-steps{gap:20px}.reply-steps li{min-width:0;line-height:1.5}
+  .chapter-forward{min-width:0;text-align:right;white-space:normal;line-height:1.5}.chapter-arrow{flex-shrink:0}
+  .footer__bottom{flex-wrap:wrap;justify-content:center}.footer__bottom .replay{width:100%;text-align:center;min-height:44px;padding:10px 0;border:0}
+}
+@media screen and (max-width:600px){
+  .masthead{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+  .monogram{font-size:1.8rem}.section-nav{gap:0 16px}.section-nav a{font-size:13px}
+  .hero{padding:32px 22px;gap:30px}.names{font-size:clamp(2.8rem,12vw,4.8rem);letter-spacing:-.055em}.hero .eyebrow{font-size:12px;letter-spacing:.12em;gap:12px}.fine-line{width:28px;flex-shrink:0}
+  .hero__promise{margin-top:22px}.hero__details{font-size:16px}.hero__arch{max-height:520px}.hero__caption{font-size:clamp(1.1rem,5vw,1.4rem);bottom:28px;left:24px;right:24px}
+  .hero__copy>.btn{min-width:160px}.section{padding:48px 22px}.letter__body h2{font-size:clamp(1.8rem,7vw,2.3rem);overflow-wrap:break-word}
+  .letter__aside{gap:12px}.years-mark{gap:8px}.years-mark>span{font-size:2.8rem}.section-label{gap:12px;letter-spacing:.05em}
+  .chapter-tabs{gap:10px;margin-top:22px}.chapter-tabs button{font-size:13px;overflow-wrap:break-word}.chapter h3,.section-heading h2{font-size:clamp(1.8rem,7vw,2.4rem)}
+  .chapter-controls{gap:10px}.chapter-forward{font-size:13px;gap:8px;flex:1;justify-content:flex-end}.chapter-hint{line-height:1.7}
+  .event{grid-template-columns:minmax(0,1fr);gap:16px;padding:28px 0}.event__time{display:flex;align-items:center;gap:14px;font-size:1.8rem}.event__time span{margin:0;font-size:13px}.event__body p{overflow-wrap:break-word}
+  .countdown-section{padding:40px 18px}.countdown{gap:5px}.countdown li{min-width:0}.countdown strong{font-size:clamp(2rem,9vw,3rem)}.countdown span{font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+  .rsvp-paper{padding:25px 18px}.grid-2{grid-template-columns:minmax(0,1fr);gap:0}.choices--wrap{grid-template-columns:repeat(2,minmax(0,1fr))}.choice{min-height:48px;padding:12px;font-size:15px}.choices--wrap .choice{font-size:14px;min-height:48px}
+  .field__label{font-size:14px}.form input[type=text],.form input[type=email],.form textarea{font-size:16px;min-height:50px}.reply-steps{gap:14px}.reply-steps li{font-size:13px;gap:8px;flex:1}.form .btn{gap:14px;padding:13px 16px;min-height:52px;white-space:normal}
+  .dress-palette{grid-template-columns:repeat(2,minmax(0,1fr));gap:23px 18px}.colour-swatch{aspect-ratio:1.55}.colour-name{font-size:14px}.dress-intro,.palette-note{font-size:16px}.questions-block{margin-top:32px;padding-top:28px}
+  .homes{gap:20px;flex-wrap:wrap}.home{min-width:70px}.home__name{font-size:13px}.footer{padding:38px 22px max(24px,env(safe-area-inset-bottom))}.photo-credit{overflow-wrap:anywhere}
+  .envelope__hint{padding:0 25px;letter-spacing:.12em;line-height:1.8;bottom:max(28px,env(safe-area-inset-bottom))}.envelope__guest{padding:0 10px;overflow-wrap:break-word}.envelope__stage{width:min(360px,80vw)}
+}
+@media screen and (max-width:420px){.choices--wrap{grid-template-columns:minmax(0,1fr)}.rsvp-paper{padding:24px 16px}.chapter-tabs button{font-size:12px}.chapter-forward{font-size:12px}.reply-review h3{font-size:1.65rem}.hero__side{letter-spacing:.06em}}
+@media screen and (max-height:560px){.envelope__eyebrow{top:18px}.envelope__guest{top:50px;font-size:1rem}.envelope__stage{width:min(280px,55vw)}.envelope__hint{bottom:14px;font-size:12px}}
