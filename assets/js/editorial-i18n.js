@@ -172,8 +172,7 @@
     "dress.champagne": "Champagne",
     "dress.ivory": "Ivory",
     "dress.cream": "Cream",
-    "dress.sage": "Sage Green",
-    "dress.mint": "Mint"
+    "dress.sage": "Sage Green"
   },
   "el": {
     "dress.title": "Ενδυματολογικός κώδικας",
@@ -187,8 +186,7 @@
     "dress.champagne": "Σαμπανί",
     "dress.ivory": "Ιβουάρ",
     "dress.cream": "Κρεμ",
-    "dress.sage": "Πράσινο του φασκόμηλου",
-    "dress.mint": "Μέντα"
+    "dress.sage": "Πράσινο του φασκόμηλου"
   },
   "sv": {
     "dress.title": "Klädsel",
@@ -202,8 +200,7 @@
     "dress.champagne": "Champagne",
     "dress.ivory": "Elfenben",
     "dress.cream": "Gräddvit",
-    "dress.sage": "Salviagrönt",
-    "dress.mint": "Mint"
+    "dress.sage": "Salviagrönt"
   },
   "hr": {
     "dress.title": "Pravila odijevanja",
@@ -217,7 +214,6 @@
     "dress.champagne": "Šampanj",
     "dress.ivory": "Bjelokost",
     "dress.cream": "Krem",
-    "dress.sage": "Zelena kadulje",
-    "dress.mint": "Menta"
+    "dress.sage": "Zelena kadulje"
   }
 };Object.keys(copy).forEach(function(lang){Object.assign(window.I18N[lang],copy[lang]);});})();
