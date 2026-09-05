@@ -1,0 +1,183 @@
+.is-sealed, .is-sealed body { overflow: hidden; }
+
+.envelope {
+  /* faint fibre grain shared by every face; white speckle for the navy
+     paper, dark speckle for the cream card */
+  --paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23m)'/%3E%3C/svg%3E");
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(120% 90% at 50% 30%, #143154 0%, var(--navy) 45%, var(--navy-deep) 100%);
+  perspective: 1100px;
+  cursor: pointer;
+}
+.envelope__stage {
+  position: relative;
+  width: min(330px, 76vw);
+  aspect-ratio: 3 / 2;
+  animation: envLift .9s cubic-bezier(.22, 1, .36, 1) .1s backwards;
+}
+/* flat stacking, so z-index decides who paints over whom; only the flap
+   rotates in 3D, and it takes its perspective from here. preserve-3d would
+   depth-sort the planes instead, and the flap folded to nearly flat then
+   slices through the card. */
+.envelope__body { position: absolute; inset: 0; perspective: 900px; }
+
+.envelope__back {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border: 1px solid rgba(201, 164, 76, .5);
+  border-radius: 3px;
+  background-image: var(--paper), linear-gradient(170deg, #10263f, #0a1b2f);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, .45);
+}
+
+/* the front of the pocket: everything below the mouth, so the card's lower
+   half stays hidden inside while it slides out */
+.envelope__front {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: 3px;
+  clip-path: polygon(0 0, 50% 62%, 100% 0, 100% 100%, 0 100%);
+  background-image: var(--paper), linear-gradient(160deg, #1c3d63, #102a47 78%);
+  box-shadow: inset 0 -1px 0 rgba(201, 164, 76, .3),
+              inset 1px 0 0 rgba(201, 164, 76, .18),
+              inset -1px 0 0 rgba(201, 164, 76, .18);
+}
+
+.envelope__flap {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 62%;
+  z-index: 5;
+  transform-origin: 50% 0;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background-image: var(--paper), linear-gradient(180deg, #27578a, #1b3f68);
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .35));
+}
+
+.envelope__seal {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  top: 62%;
+  width: 62px;
+  height: 62px;
+  margin: -31px 0 0 -31px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 35% 30%, #b4564a, var(--brick) 60%, #7d3830);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .45), inset 0 0 0 2px rgba(224, 198, 132, .35);
+  color: var(--gold-soft);
+  font-family: var(--serif);
+  font-size: .82rem;
+  letter-spacing: .06em;
+}
+
+.envelope__card {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 50%;
+  width: 84%;
+  margin-left: -42%;
+  padding: 1.6rem 1rem 1.4rem;
+  text-align: center;
+  background-color: var(--cream);
+  background-image: var(--grain);
+  color: var(--navy);
+  border-radius: 2px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .35);
+  transform: translateY(-26%);
+}
+/* a fine gold frame, like a printed invitation card */
+.envelope__card::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(201, 164, 76, .5);
+  pointer-events: none;
+}
+.envelope__names { font-family: var(--serif); font-size: 1.5rem; margin: 0 0 .25rem; }
+.envelope__date {
+  margin: 0;
+  font-size: .68rem;
+  letter-spacing: .28em;
+  color: var(--muted);
+}
+
+/* Sealed and waiting: the seal breathes so the tap is invited. */
+.envelope:not(.is-opening) .envelope__seal { animation: sealPulse 2.6s ease-in-out infinite; }
+.envelope__hint {
+  position: absolute;
+  bottom: clamp(2.4rem, 12vh, 6rem);
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: 0;
+  font-size: .74rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(224, 198, 132, .75);
+  animation: hintIn 1s ease 1.1s backwards, hintPulse 2.6s ease-in-out 2.1s infinite;
+}
+.envelope.is-opening .envelope__hint { animation: envGone .4s ease forwards; }
+
+/* Tapped: the wax breaks off and falls, the flap folds back on its hinge
+   showing the paper inside, the card slides up out of the pocket, and the
+   whole envelope tips slightly in the hand. */
+.envelope.is-opening { animation: envGone .9s ease 2.75s forwards; }
+.envelope.is-opening .envelope__stage { animation: envTilt 1.5s ease; }
+.envelope.is-opening .envelope__seal { animation: envSeal .85s cubic-bezier(.45, 0, .9, .4) .05s forwards; }
+.envelope.is-opening .envelope__flap { animation: envFlap 1.35s cubic-bezier(.6, 0, .3, 1) .5s forwards; }
+.envelope.is-opening .envelope__card { animation: envCard 1.4s cubic-bezier(.22, 1, .36, 1) 1.35s forwards; }
+
+@keyframes sealPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 4px 14px rgba(0, 0, 0, .45), inset 0 0 0 2px rgba(224, 198, 132, .35); }
+  50%      { transform: scale(1.06); box-shadow: 0 6px 22px rgba(0, 0, 0, .5), inset 0 0 0 2px rgba(224, 198, 132, .7); }
+}
+@keyframes hintIn { from { opacity: 0; transform: translateY(8px); } }
+@keyframes hintPulse { 0%, 100% { opacity: .75; } 50% { opacity: 1; } }
+
+/* the broken wax drops away under gravity */
+@keyframes envSeal {
+  0%   { transform: none; opacity: 1; }
+  22%  { transform: translate(-3px, 5px) rotate(-7deg); opacity: 1; }
+  100% { transform: translate(12px, 150px) rotate(38deg); opacity: 0; }
+}
+/* the flap swings past upright and shows its paper inner side; once it is
+   past the hinge it drops behind the envelope, the way a real flap lies */
+@keyframes envFlap {
+  0%    { transform: rotateX(0deg); z-index: 5;
+          background-image: var(--paper), linear-gradient(180deg, #27578a, #1b3f68); }
+  49.9% { background-image: var(--paper), linear-gradient(180deg, #27578a, #1b3f68); }
+  50%   { background-image: var(--grain), linear-gradient(0deg, #e8e2d3, #d5cebb); z-index: 5; }
+  56%   { z-index: 1; }
+  100%  { transform: rotateX(-178deg); z-index: 1;
+          background-image: var(--grain), linear-gradient(0deg, #e8e2d3, #d5cebb); }
+}
+/* the card rises out of the mouth, overshoots a little, and settles */
+@keyframes envCard {
+  0%   { transform: translateY(-26%); }
+  62%  { transform: translateY(-121%); }
+  100% { transform: translateY(-112%) scale(1.03); }
+}
+/* being handled: the envelope dips as the wax gives way */
+@keyframes envTilt {
+  0%   { transform: none; }
+  28%  { transform: rotateX(7deg) translateY(4px); }
+  100% { transform: none; }
+}
+@keyframes envLift {
+  from { transform: translateY(26px) scale(.94); opacity: 0; }
+}
+@keyframes envGone {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+

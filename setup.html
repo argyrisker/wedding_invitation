@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSVP setup check</title>
+<meta name="robots" content="noindex">
+<style>
+  :root { --navy:#0f2440; --gold:#c9a44c; --cream:#f8f4ec; --ink:#1d2a3a;
+          --ok:#2e7d52; --bad:#b3453a; --muted:#6b7a8d; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:2.4rem 1.2rem 4rem; background:var(--cream); color:var(--ink);
+         font:400 16px/1.65 "Helvetica Neue", Arial, sans-serif; }
+  main { width:min(720px, 100%); margin:0 auto; }
+  h1 { font:400 2rem/1.2 Georgia, serif; margin:0 0 .4rem; color:var(--navy); }
+  .sub { margin:0 0 2rem; color:var(--muted); }
+  ol { padding-left:1.2rem; }
+  li { margin-bottom:.5rem; }
+  label { display:block; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
+          color:var(--muted); margin:1.6rem 0 .4rem; }
+  input { width:100%; padding:.8rem .9rem; border:1px solid #cfc6b4; border-radius:3px;
+          font-size:1rem; font-family:ui-monospace, Menlo, Consolas, monospace; }
+  input:focus { outline:none; border-color:var(--gold); }
+  button { margin-top:1rem; padding:.85rem 1.8rem; border:0; border-radius:999px;
+           background:var(--navy); color:var(--cream); font-size:.85rem; letter-spacing:.14em;
+           text-transform:uppercase; cursor:pointer; }
+  button:disabled { opacity:.5; cursor:progress; }
+  .step { padding:.9rem 1.1rem; border-left:3px solid #ddd4c2; background:#fff;
+          margin-bottom:.5rem; border-radius:2px; }
+  .step.ok   { border-left-color:var(--ok); }
+  .step.bad  { border-left-color:var(--bad); }
+  .step.run  { border-left-color:var(--gold); }
+  .step b { display:block; }
+  .step small { color:var(--muted); }
+  pre { background:var(--navy); color:var(--cream); padding:1rem; border-radius:3px;
+        overflow-x:auto; font-size:.85rem; }
+  .hint { background:#fff6e0; border-left:3px solid var(--gold); padding:.9rem 1.1rem;
+          border-radius:2px; margin-top:1rem; }
+  code { background:#eee7d8; padding:.1rem .3rem; border-radius:2px; font-size:.9em; }
+</style>
+</head>
+<body>
+<main>
+  <h1>RSVP setup check</h1>
+  <p class="sub">Paste the web app URL from Apps Script and this page will send a real test
+     reply, then tell you exactly what happened. Nothing here is linked from the invitation.</p>
+
+  <ol>
+    <li>Create a Google Sheet, then <b>Extensions &rarr; Apps Script</b>.</li>
+    <li>Paste the contents of <code>google-apps-script/Code.gs</code> and save.</li>
+    <li><b>Deploy &rarr; New deployment &rarr; Web app</b>, with
+        <b>Execute as: Me</b> and <b>Who has access: Anyone</b>.</li>
+    <li>Copy the URL ending in <code>/exec</code> and paste it below.</li>
+  </ol>
+
+  <label for="url">Web app URL</label>
+  <input id="url" type="url" placeholder="https://script.google.com/macros/s/AKfy…/exec"
+         autocomplete="off" spellcheck="false">
+  <button id="run" type="button">Run the check</button>
+
+  <div id="out" style="margin-top:1.6rem"></div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var out = document.getElementById("out");
+  var input = document.getElementById("url");
+  var button = document.getElementById("run");
+
+  function say(state, title, detail) {
+    var box = document.createElement("div");
+    box.className = "step " + state;
+    var b = document.createElement("b");
+    b.textContent = title;
+    box.appendChild(b);
+    if (detail) {
+      var s = document.createElement("small");
+      s.textContent = detail;
+      box.appendChild(s);
+    }
+    out.appendChild(box);
+    return box;
+  }
+
+  function hint(html) {
+    var box = document.createElement("div");
+    box.className = "hint";
+    box.innerHTML = html;
+    out.appendChild(box);
+  }
+
+  button.addEventListener("click", function () {
+    out.innerHTML = "";
+    var url = input.value.trim();
+
+    if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(url)) {
+      say("bad", "That does not look like a web app URL",
+          "It has to start with https://script.google.com/macros/s/ and end with /exec. " +
+          "A /dev URL only works while you are signed in, so guests cannot use it.");
+      return;
+    }
+    say("ok", "URL looks right");
+
+    button.disabled = true;
+    var running = say("run", "Sending a test reply…", "Checking the deployment answers and stores a row.");
+
+    var body = new URLSearchParams({
+      firstName: "Setup", lastName: "Test", attending: "No", diet: "",
+      allergies: "", email: "setup-test@example.com",
+      message: "Automatic check, delete this row.", language: "en"
+    }).toString();
+
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+      body: body
+    })
+      .then(function (res) {
+        return res.text().then(function (text) { return { status: res.status, text: text }; });
+      })
+      .then(function (r) {
+        running.remove();
+        if (r.status !== 200) {
+          say("bad", "The script answered " + r.status,
+              "Check that the deployment is still active under Manage deployments.");
+          return;
+        }
+        var data = null;
+        try { data = JSON.parse(r.text); } catch (e) {}
+
+        if (data && data.ok === true) {
+          say("ok", "It works. A test row was written to the Sheet.",
+              "Row " + (data.row || "?") + ". Delete that row when you are done.");
+          hint("Last step: put this line in <code>assets/js/config.js</code>, then commit and push." +
+               "<pre>appsScriptUrl: " + JSON.stringify(url) + ",</pre>");
+        } else if (data && data.ok === false) {
+          say("bad", "The script refused the reply: " + (data.error || "unknown"),
+              "The script ran, so the deployment is fine. This is a problem inside Code.gs.");
+        } else if (/<html/i.test(r.text) && /accounts\.google\.com|signin/i.test(r.text)) {
+          say("bad", "Google asked for a login instead of running the script",
+              "Set Who has access to Anyone, not Anyone with a Google account, then deploy a new version.");
+        } else {
+          say("bad", "The reply was not the JSON this script sends",
+              "Most often the pasted code is not Code.gs, or an older version is still deployed. " +
+              "Redeploy with Manage deployments, edit, Version: New version.");
+        }
+      })
+      .catch(function (err) {
+        running.remove();
+        say("bad", "The browser could not reach the script",
+            String(err && err.message || err));
+        hint("This is almost always the access setting. In Apps Script open " +
+             "<b>Manage deployments</b>, press the pencil, set <b>Who has access</b> to " +
+             "<b>Anyone</b>, choose <b>Version: New version</b> and press Deploy. " +
+             "Then try again.");
+      })
+      .then(function () { button.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>

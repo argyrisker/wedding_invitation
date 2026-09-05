@@ -1,0 +1,15 @@
+/* Interface additions; the original invitation wording lives in i18n.js. */
+(function () {
+  var copy = {
+    en: ['An invitation, just for you', 'Skip to invitation', 'The invitation', 'Our day', 'Celebrate our love', 'A day to share with you', 'Together, from this day forward', 'The fifth of June', 'One day. A lifetime together.', 'About the ceremony', 'Every moment brings us closer', 'Your reply', 'We would love to celebrate with you.', 'Two journeys. One home.', 'Open the envelope again', 'Invitation navigation', 'Language', 'Your reply was sent, but we could not confirm it was saved. Please contact us before sending again.', 'Contact us about your reply'],
+    sv: ['En inbjudan, bara till dig', 'Hoppa till inbjudan', 'Inbjudan', 'Vår dag', 'Fira vår kärlek', 'En dag att dela med dig', 'Tillsammans, från denna dag', 'Den femte juni', 'En dag. Ett liv tillsammans.', 'Om vigseln', 'Varje ögonblick för oss närmare', 'Ditt svar', 'Vi vill så gärna fira med dig.', 'Två resor. Ett hem.', 'Öppna kuvertet igen', 'Navigera i inbjudan', 'Språk', 'Ditt svar skickades, men vi kunde inte bekräfta att det sparades. Kontakta oss innan du skickar igen.', 'Kontakta oss om ditt svar'],
+    el: ['Μια πρόσκληση, μόνο για εσάς', 'Μετάβαση στην πρόσκληση', 'Η πρόσκληση', 'Η μέρα μας', 'Γιορτάστε την αγάπη μας', 'Μια μέρα να μοιραστούμε μαζί σας', 'Μαζί, από αυτή τη μέρα και για πάντα', 'Πέντε Ιουνίου', 'Μια μέρα. Μια ζωή μαζί.', 'Σχετικά με την τελετή', 'Κάθε στιγμή μάς φέρνει πιο κοντά', 'Η απάντησή σας', 'Θα χαρούμε να γιορτάσουμε μαζί σας.', 'Δύο διαδρομές. Ένα σπίτι.', 'Ανοίξτε ξανά τον φάκελο', 'Πλοήγηση στην πρόσκληση', 'Γλώσσα', 'Η απάντησή σας στάλθηκε, αλλά δεν μπορέσαμε να επιβεβαιώσουμε ότι αποθηκεύτηκε. Επικοινωνήστε μαζί μας πριν τη στείλετε ξανά.', 'Επικοινωνήστε για την απάντησή σας'],
+    hr: ['Pozivnica, samo za vas', 'Prijeđi na pozivnicu', 'Pozivnica', 'Naš dan', 'Proslavite našu ljubav', 'Dan koji želimo podijeliti s vama', 'Zajedno, od ovog dana zauvijek', 'Peti lipnja', 'Jedan dan. Cijeli život zajedno.', 'O obredu', 'Svaki trenutak nas približava', 'Vaš odgovor', 'Voljeli bismo slaviti s vama.', 'Dva putovanja. Jedan dom.', 'Ponovno otvori omotnicu', 'Navigacija pozivnicom', 'Jezik', 'Vaš je odgovor poslan, ali nismo mogli potvrditi da je spremljen. Javite nam se prije ponovnog slanja.', 'Javite nam se o svom odgovoru']
+  };
+  var keys = ['sealed', 'skip', 'invitation', 'day', 'celebrate', 'discover', 'forever', 'june', 'dayTitle', 'ceremonyDetails', 'counting', 'yourReply', 'rsvpWelcome', 'roots', 'reopen', 'navigation', 'language', 'unconfirmed', 'unconfirmedLink'];
+  Object.keys(copy).forEach(function (lang) {
+    keys.forEach(function (key, i) { window.I18N[lang]['new.' + key] = copy[lang][i]; });
+  });
+  var alt = { en: 'Stockholm City Hall beside the water', sv: 'Stockholms stadshus vid vattnet', el: 'Το Δημαρχείο της Στοκχόλμης δίπλα στο νερό', hr: 'Gradska vijećnica u Stockholmu uz vodu' };
+  Object.keys(alt).forEach(function (lang) { window.I18N[lang]['new.photoAlt'] = alt[lang]; });
+})();
