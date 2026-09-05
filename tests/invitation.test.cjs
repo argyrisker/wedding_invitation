@@ -30,7 +30,10 @@ function fill(dom, attending = 'Yes') {
   form.querySelector('[name=diet][value=Vegetarian]').checked = true;
   return form;
 }
-function submit(dom, form) { form.dispatchEvent(new dom.window.Event('submit', { bubbles: true, cancelable: true })); }
+function submit(dom, form) {
+  if (!dom.window.document.getElementById('replyDetails').hidden) dom.window.document.getElementById('reviewReply').click();
+  form.dispatchEvent(new dom.window.Event('submit', { bubbles: true, cancelable: true }));
+}
 
 for (const lang of ['sv', 'el', 'en', 'hr']) {
   test(`${lang}: all visible copy and attributes are translated`, () => {
@@ -168,4 +171,80 @@ test('reduced-motion envelope opens by keyboard, unlocks the page and can replay
     d.getElementById('replayEnvelope').click(); assert.equal(env.hidden,false);
     env.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true})); await flush(); assert.equal(env.hidden,true);
   } finally { dom.window.close(); }
+});
+
+test('story chapters support next, previous and arrow keys without changing the greeting', () => {
+  const dom=load('?lang=el&to=Maria&g=f');
+  try {
+    const d=dom.window.document, greeting=d.getElementById('greeting').textContent;
+    assert.equal(d.getElementById('chapter1').hidden,false);
+    d.getElementById('chapterNext').click();
+    assert.equal(d.getElementById('chapter1').hidden,true); assert.equal(d.getElementById('chapter2').hidden,false);
+    d.getElementById('chapterTab2').dispatchEvent(new dom.window.KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));
+    assert.equal(d.getElementById('chapter3').hidden,false); assert.equal(d.getElementById('chapterNext').disabled,true);
+    assert.equal(d.activeElement.id,'chapterTab3');
+    d.getElementById('chapterPrevious').click(); assert.equal(d.getElementById('chapter2').hidden,false);
+    d.querySelector('[data-lang=hr]').click();
+    assert.equal(d.getElementById('chapter2').hidden,false); assert.equal(d.getElementById('chapterPosition').textContent,'02 / 03');
+    assert.ok(greeting.includes('Maria')); assert.ok(d.getElementById('greeting').textContent.includes('Maria'));
+  } finally { dom.window.close(); }
+});
+test('a horizontal swipe turns a chapter while vertical movement does not', () => {
+  const dom=load();
+  try {
+    const d=dom.window.document,pages=d.getElementById('chapterPages');
+    function pointer(type,x,y){const e=new dom.window.Event(type,{bubbles:true});Object.assign(e,{button:0,pointerId:1,clientX:x,clientY:y});pages.dispatchEvent(e);}
+    pointer('pointerdown',200,100);pointer('pointerup',100,105);assert.equal(d.getElementById('chapter2').hidden,false);
+    pointer('pointerdown',200,100);pointer('pointerup',180,220);assert.equal(d.getElementById('chapter2').hidden,false);
+  } finally { dom.window.close(); }
+});
+test('the selectable schedule preserves ceremony eligibility and translates in place', () => {
+  const dom=load('?lang=en&inv=ceremony');
+  try {
+    const d=dom.window.document;d.getElementById('dayTab1').click();
+    assert.equal(d.getElementById('dayPanel0').hidden,true);assert.equal(d.getElementById('dayPanel1').hidden,false);
+    d.querySelector('[data-lang=el]').click();assert.equal(d.getElementById('dayPanel1').hidden,false);
+    d.getElementById('dayTab0').click();assert.equal(d.getElementById('dayPanel0').hidden,false);
+    assert.equal(d.querySelector('[data-i18n="ceremony.noteCeremony"]').textContent,dom.window.I18N.el['ceremony.noteCeremony']);
+  } finally { dom.window.close(); }
+});
+test('the first Enter opens review without submitting; changes and final confirmation work', async () => {
+  let calls=0;
+  const dom=load('?lang=en',{fetch:async()=>{calls++;return {ok:true,json:async()=>({ok:true})};}});
+  try {
+    const d=dom.window.document,form=fill(dom);
+    assert.equal(d.getElementById('reviewReply').hidden,false);
+    assert.equal(d.getElementById('submitBtn').parentElement,d.getElementById('replyReview'));
+    form.elements.message.value='<script>not markup</script>';
+    form.dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true}));await flush();
+    assert.equal(calls,0);assert.equal(d.getElementById('replyReview').hidden,false);
+    assert.ok(d.getElementById('replySummary').textContent.includes('<script>not markup</script>'));
+    assert.equal(d.getElementById('replySummary').querySelector('script'),null);
+    d.getElementById('backToReply').click();assert.equal(d.getElementById('replyDetails').hidden,false);
+    form.elements.firstName.value='Updated'; d.getElementById('reviewReply').click();
+    assert.ok(d.getElementById('replySummary').textContent.includes('Updated'));
+    d.querySelector('[data-lang=el]').click();assert.ok(d.getElementById('replySummary').textContent.includes(dom.window.I18N.el['form.yes']));
+    form.dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true}));await flush();assert.equal(calls,1);
+    d.getElementById('editAgain').click();assert.equal(d.getElementById('replyDetails').hidden,false);assert.equal(d.getElementById('replyReview').hidden,true);
+  } finally { dom.window.close(); }
+});
+for(const lang of ['en','el','sv','hr'])test(`${lang}: calendar export has correct dates, escaped text and no guest identifiers`,()=>{
+  const dom=load('?lang='+lang+'&to=PrivateGuest');
+  try {
+    const text=dom.window.InvitationExperience.calendarText();
+    assert.ok(text.includes('DTSTART;VALUE=DATE:20270605\r\n'));
+    assert.ok(text.includes('DTEND;VALUE=DATE:20270606\r\n'));
+    assert.ok(!text.includes('PrivateGuest'));assert.ok(!text.includes('15:20'));
+    text.split('\r\n').forEach(line=>assert.ok(Buffer.byteLength(line,'utf8')<=75));
+    assert.ok(text.replace(/\r\n /g,'').includes(dom.window.I18N[lang]['day.afterwards']));
+  }finally{dom.window.close();}
+});
+test('calendar includes ceremony time only for ceremony guests',()=>{
+  const dom=load('?lang=en&inv=ceremony');
+  try{assert.ok(dom.window.InvitationExperience.calendarText().includes('15:20'));}finally{dom.window.close();}
+});
+test('two years is present in all four story versions without inventing an anniversary date',()=>{
+  const dom=load();
+  try{const starts={en:'Two years',el:'Δύο χρόνια',sv:'Två år',hr:'Dvije godine'};for(const [lang,start] of Object.entries(starts))assert.ok(dom.window.I18N[lang]['invite.body'].startsWith(start));}
+  finally{dom.window.close();}
 });

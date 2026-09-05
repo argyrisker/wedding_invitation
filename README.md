@@ -4,6 +4,8 @@ An editorial redesign of [the original invitation](https://github.com/argyrisker
 
 Preserved: opening envelope, navy/cream/gold/brick/Aegean palette, Swedish/Greek/English/Croatian, personalised greetings, ceremony variants, countdown, dietary choices, hometown emblems, contact link and Google Sheets RSVP integration.
 
+The revised invitation tells your story in three chapters, reflecting **two years together at the time of writing**, without inventing an anniversary date. Guests can tap, use arrow keys, or swipe through the chapters; explore the ceremony and dinner schedule; save a date-only calendar invitation; pull down the envelope seal; and review their RSVP before sending. All new copy and controls are translated into all four languages. Calendar downloads respect ceremony access and include no guest details.
+
 ## Preview and hosting
 
 This is a static website with no runtime dependencies. Serve the directory with any static host, or run `python -m http.server 4173` and open `http://localhost:4173`.
@@ -64,7 +66,7 @@ pnpm test
 pnpm build
 ```
 
-The build checks script syntax, translations and assets, then copies guest-facing files to `dist/`. The 23 tests cover language selection, gendered/custom greetings, ceremony variants, literal text handling, validation, exact RSVP fields, confirmed/unconfirmed/error responses, duplicate-submit protection, storage isolation, editing, and keyboard/reduced-motion envelope opening.
+The build checks script syntax, translations and assets, then copies guest-facing files to `dist/`. The 33 tests cover language selection, gendered/custom greetings, ceremony variants, literal text handling, validation, exact RSVP fields, confirmed/unconfirmed/error responses, duplicate-submit protection, storage isolation, editing, keyboard/reduced-motion envelope opening, chapter gestures, schedule navigation, RSVP review and calendar export.
 
 Browser visual testing and a real Sheet write were not performed.
 

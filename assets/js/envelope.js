@@ -47,6 +47,26 @@
     autoOpen = setTimeout(open, 18000);
   }
   env.addEventListener('click', open);
+  var seal = env.querySelector('.envelope__seal'), drag = null;
+  seal.addEventListener('pointerdown', function (event) {
+    if (isOpening || event.button !== 0) return;
+    drag = { id: event.pointerId, y: event.clientY };
+    if (seal.setPointerCapture) seal.setPointerCapture(event.pointerId);
+    env.classList.add('is-dragging');
+  });
+  seal.addEventListener('pointermove', function (event) {
+    if (!drag || drag.id !== event.pointerId) return;
+    var distance = Math.max(0, Math.min(90, event.clientY - drag.y));
+    seal.style.transform = 'translateY(' + distance + 'px) rotate(' + distance / 8 + 'deg)';
+  });
+  function endDrag(event) {
+    if (!drag || drag.id !== event.pointerId) return;
+    var distance = event.clientY - drag.y;
+    drag = null; seal.style.transform = ''; env.classList.remove('is-dragging');
+    if (event.type !== 'pointercancel' && distance > 45) open();
+  }
+  seal.addEventListener('pointerup', endDrag);
+  seal.addEventListener('pointercancel', endDrag);
   env.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') { e.preventDefault(); open(); }
     if (e.key === 'Tab') { e.preventDefault(); env.focus(); }

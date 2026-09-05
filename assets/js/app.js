@@ -95,6 +95,8 @@
     });
 
     personalizeGreeting();
+    var envelopeGuest = document.getElementById("envelopeGuest");
+    if (envelopeGuest) envelopeGuest.textContent = (GUEST.name || GUEST.greet) ? $('[data-i18n="invite.title"]').textContent : "Argyrios & Tomislav";
 
     $$(".lang").forEach(function (btn) {
       var on = btn.getAttribute("data-lang") === lang;
@@ -113,6 +115,7 @@
     renderThanks();
     tickCountdown();
     renderFeedback();
+    document.dispatchEvent(new CustomEvent("invitation:language"));
   }
 
   /* The flags open their country and the emblems their city, each on the
@@ -440,6 +443,7 @@
     feedback = null;
     try { localStorage.removeItem(STORE_SENT); } catch (e) {}
     renderThanks();
+    document.dispatchEvent(new CustomEvent("invitation:edit"));
     form.scrollIntoView({ behavior: "smooth", block: "center" });
   });
 
@@ -523,5 +527,10 @@
     }
   }
 
+  // The review screen uses exactly the same validation and payload as submission.
+  window.InvitationReply = {
+    validate: function () { return validate(collect()); },
+    collect: collect
+  };
   applyLang();
 })();
