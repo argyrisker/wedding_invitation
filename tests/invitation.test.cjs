@@ -74,11 +74,11 @@ test('custom greeting remains literal, and changing language preserves every gue
     assert.equal(q.get('lang'), 'hr'); assert.equal(q.get('to'), 'Maria'); assert.equal(q.get('g'), 'f'); assert.equal(q.get('inv'), 'ceremony'); assert.equal(q.get('greet'), greeting);
   } finally { dom.window.close(); }
 });
-test('invalid language falls back and general guest links retain the limited-seats message', () => {
+test('invalid language falls back and all guest links welcome guests to Skansen', () => {
   const dom = load('?lang=xx');
   try {
     assert.equal(dom.window.document.documentElement.lang, 'en');
-    assert.equal(dom.window.document.querySelector('[data-i18n="ceremony.note"]').textContent, dom.window.I18N.en['ceremony.note']);
+    assert.equal(dom.window.document.querySelector('[data-i18n="ceremony.noteCeremony"]').textContent, dom.window.I18N.en['ceremony.note']);
   } finally { dom.window.close(); }
 });
 test('required fields block submission, keep focus on the error and expose its description', () => {
@@ -95,7 +95,7 @@ test('required fields block submission, keep focus on the error and expose its d
     assert.equal(calls, 0); assert.equal(form.elements.email.getAttribute('aria-invalid'), 'true');
   } finally { dom.window.close(); }
 });
-test('confirmed yes posts the unchanged Sheets field contract exactly once and can be edited', async () => {
+test('confirmed yes posts the Sheets fields plus the Skansen delivery marker exactly once and can be edited', async () => {
   const requests = [];
   const dom = load('?lang=hr&to=Maria', { fetch: async (url, opts) => { requests.push({ url, opts }); return { ok: true, json: async () => ({ ok: true, row: 2 }) }; } });
   try {
@@ -103,7 +103,7 @@ test('confirmed yes posts the unchanged Sheets field contract exactly once and c
     assert.equal(requests.length, 1);
     assert.equal(requests[0].url, dom.window.RSVP_CONFIG.appsScriptUrl);
     const data = Object.fromEntries(new URLSearchParams(requests[0].opts.body));
-    assert.deepEqual(Object.keys(data).sort(), ['firstName','lastName','attending','diet','allergies','email','message','language','submittedAt'].sort());
+    assert.deepEqual(Object.keys(data).sort(), ['firstName','lastName','attending','diet','allergies','email','message','language','submittedAt','venueVariant'].sort());
     assert.equal(data.language, 'hr'); assert.equal(data.diet, 'Vegetarian'); assert.equal(data.attending, 'Yes');
     assert.equal(form.hidden, true); assert.equal(dom.window.document.getElementById('thanks').hidden, false);
     dom.window.document.getElementById('editAgain').click();
@@ -148,7 +148,7 @@ test('confirmed success still works with browser storage disabled', async () => 
 });
 test('stored answers are isolated per guest and edit restores every form field after reload', () => {
   const answer = { firstName:'Maria', lastName:'Guest', email:'maria@example.invalid', attending:'Yes', diet:'Vegan, Nut allergy', allergies:'Sesame', message:'Lovely', language:'el' };
-  const store = { 'invite_new.answer:Maria': JSON.stringify(answer), 'rsvp.answer': JSON.stringify(answer) };
+  const store = { 'invite_new.skansen.answer:Maria': JSON.stringify(answer), 'rsvp.answer': JSON.stringify(answer) };
   let dom = load('?lang=en&to=Other', { store });
   try { assert.equal(dom.window.document.getElementById('rsvpForm').hidden, false); } finally { dom.window.close(); }
   dom = load('?lang=en&to=Maria', { store });
@@ -199,7 +199,7 @@ test('a horizontal swipe turns a chapter while vertical movement does not', () =
   } finally { dom.window.close(); }
 });
 test('the selectable schedule preserves ceremony eligibility and translates in place', () => {
-  const dom=load('?lang=en&inv=ceremony');
+  const dom=load('?lang=en', {config:{ceremonyTime:'14:00'}});
   try {
     const d=dom.window.document;d.getElementById('dayTab1').click();
     assert.equal(d.getElementById('dayPanel0').hidden,true);assert.equal(d.getElementById('dayPanel1').hidden,false);
@@ -236,15 +236,31 @@ for(const lang of ['en','el','sv','hr'])test(`${lang}: calendar export has corre
     assert.ok(text.includes('DTEND;VALUE=DATE:20270606\r\n'));
     assert.ok(!text.includes('PrivateGuest'));assert.ok(!text.includes('15:20'));
     text.split('\r\n').forEach(line=>assert.ok(Buffer.byteLength(line,'utf8')<=75));
-    assert.ok(text.replace(/\r\n /g,'').includes(dom.window.I18N[lang]['day.afterwards']));
+    assert.ok(text.replace(/\r\n /g,'').includes(dom.window.I18N[lang]['skansen.time']));
   }finally{dom.window.close();}
 });
-test('calendar includes ceremony time only for ceremony guests',()=>{
-  const dom=load('?lang=en&inv=ceremony');
-  try{assert.ok(dom.window.InvitationExperience.calendarText().includes('15:20'));}finally{dom.window.close();}
+test('calendar includes a confirmed ceremony time for every guest',()=>{
+  const dom=load('?lang=en', {config:{ceremonyTime:'14:00'}});
+  try{assert.ok(dom.window.InvitationExperience.calendarText().includes('14:00'));}finally{dom.window.close();}
 });
 test('two years is present in all four story versions without inventing an anniversary date',()=>{
   const dom=load();
   try{const starts={en:'Two years',el:'Δύο χρόνια',sv:'Två år',hr:'Dvije godine'};for(const [lang,start] of Object.entries(starts))assert.ok(dom.window.I18N[lang]['invite.body'].startsWith(start));}
   finally{dom.window.close();}
+});
+
+for(const lang of ['en','el','sv','hr'])test(lang+': queued card delivery is honest and localized',async()=>{
+ const dom=load('?lang='+lang,{fetch:async()=>({ok:true,json:async()=>({ok:true,cardDelivery:'queued'})})});
+ try{submit(dom,fill(dom));await flush();assert.equal(dom.window.document.getElementById('cardDeliveryStatus').textContent,dom.window.I18N[lang]['skansen.queued']);}
+ finally{dom.window.close();}
+});
+test('old backend saves RSVP without claiming an email is queued',async()=>{
+ const dom=load('?lang=en',{fetch:async()=>({ok:true,json:async()=>({ok:true})})});
+ try{submit(dom,fill(dom));await flush();assert.equal(dom.window.document.getElementById('cardDeliveryStatus').textContent,dom.window.I18N.en['skansen.unavailable']);}
+ finally{dom.window.close();}
+});
+test('declining never displays a card delivery promise',async()=>{
+ const dom=load('?lang=en',{fetch:async()=>({ok:true,json:async()=>({ok:true})})});
+ try{submit(dom,fill(dom,'No'));await flush();assert.equal(dom.window.document.getElementById('cardDeliveryStatus').hidden,true);}
+ finally{dom.window.close();}
 });

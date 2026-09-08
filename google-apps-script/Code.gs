@@ -57,9 +57,12 @@ function doPost(e) {
       return json({ ok: false, error: 'email missing' });
     }
 
+    if (!/^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/.test(String(data.email)) || ['Yes', 'No'].indexOf(data.attending) < 0) return json({ ok: false, error: 'invalid reply' });
     var result = save(data);
-    notify(data, result.updated);
-    return json({ ok: true, row: result.row, updated: result.updated });
+    var cardDelivery = 'unavailable';
+    try { cardDelivery = queueEntranceCard(data); } catch (mailError) { console.error(mailError); }
+    try { notify(data, result.updated); } catch (notifyError) { console.error(notifyError); }
+    return json({ ok: true, row: result.row, updated: result.updated, cardDelivery: cardDelivery });
 
   } catch (err) {
     return json({ ok: false, error: String(err) });

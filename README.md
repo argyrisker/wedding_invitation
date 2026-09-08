@@ -1,3 +1,9 @@
+# Skansen alternative — Swedenborgs lusthus
+
+This branch is the proposed venue change for 5 June 2027. All guests are invited to the ceremony; the time is to be confirmed. See [Skansen setup and email activation](SKANSEN-SETUP.md) before publishing or enabling card delivery. The original version stays on `main`.
+
+The instructions below describe the original redesign and its hosting; the Skansen setup guide takes precedence for this branch.
+
 # Argyrios & Tomislav — 5 June 2027
 
 An editorial redesign of [the original invitation](https://github.com/argyrisker/invitation), built independently in **invite_new**. The original repository is untouched.

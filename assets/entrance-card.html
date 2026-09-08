@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bröllopsinbjudan · Skansen</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eeeae3;color:#111;font-family:Georgia,'Times New Roman',serif}.card{width:min(100%,560px);margin:30px auto;background:white;text-align:center;padding:34px 30px 0;box-shadow:0 8px 35px #0001}.label{font:11px/1.5 Arial,sans-serif;letter-spacing:.2em;margin:0 0 24px}h1{font-size:clamp(23px,5.8vw,32px);line-height:1.25;font-weight:400;margin:0}h1 span{display:block;font-size:30px;font-style:italic;margin:3px 0}.intro{font-size:18px;font-style:italic;margin:24px 0}.details{font-size:19px;line-height:1.7;margin:0 0 24px}.venue{font-size:clamp(19px,5vw,25px);line-height:1.4;font-weight:400;margin:0 0 18px}.entry{font-size:13px;margin:0}.art{display:block;width:calc(100% + 60px);max-width:none;margin:0 -30px}.preview{font:12px/1.6 Arial,sans-serif;color:#555;text-align:center;margin:16px;padding:0 15px}.tools{text-align:center;margin:20px}button{padding:12px 24px;background:#0f2440;color:white;border:0;cursor:pointer;font:14px Arial,sans-serif;min-height:44px}@media(max-width:600px){.card{margin:0 auto;box-shadow:none;padding-top:28px}}@page{size:A5;margin:0}@media print{body{background:white}.card{width:148mm;margin:0;box-shadow:none;padding:10mm 10mm 0}.tools{display:none}.art{width:calc(100% + 20mm);margin:0 -10mm}.preview{margin:4mm}.card h1{font-size:23pt}.details{font-size:14pt}.intro{font-size:13pt}.venue{font-size:17pt}}
+</style></head><body>
+<article class="card" aria-label="Bröllopsinbjudan">
+<p class="label">BRÖLLOPSINBJUDAN</p>
+<h1>ARGYRIOS KEREZIS<span>&amp;</span>TOMISLAV POSAVAC</h1>
+<p class="intro">bjuder in dig att fira vårt bröllop</p>
+<p class="details">Datum: 5 juni 2027<br>Tid: <span id="time">meddelas senare</span></p>
+<h2 class="venue">SWEDENBORGS LUSTHUS<br>SKANSEN</h2>
+<p class="entry">Visa denna inbjudan i Skansens entré.</p>
+<img class="art" src="img/wedding-tuxedos.jpg" width="1536" height="1024" alt="Två svarta smokingar med gröna knapphålsblommor">
+</article>
+<p class="preview" id="previewNote">Förhandsversion · invänta bekräftad vigseltid innan kortet används.</p>
+<div class="tools"><button type="button" onclick="window.print()">Skriv ut / spara som PDF</button></div>
+<script src="js/config.js"></script><script>if(/^([01]\d|2[0-3]):[0-5]\d$/.test(window.RSVP_CONFIG.ceremonyTime)){document.getElementById('time').textContent='kl. '+window.RSVP_CONFIG.ceremonyTime;document.getElementById('previewNote').hidden=true;}</script>
+</body></html>

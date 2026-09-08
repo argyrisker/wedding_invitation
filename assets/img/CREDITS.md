@@ -7,3 +7,9 @@ Source and license declaration: https://commons.wikimedia.org/wiki/File:Stockhol
 The photograph shows the venue; it was taken in January 2009 and is not a photograph of the wedding.
 
 The Serres, Virovitica and Stockholm emblems, the envelope design, and the City Hall line drawing were retained from https://github.com/argyrisker/invitation.
+
+## Skansen branch
+
+`swedenborgs-lusthus.jpg`: Maria Johansson / Skansen, from https://www.skansen.se/wp-content/uploads/2023/07/Swedenborgs_20140516_MariaJohansson_2.jpg . Venue photograph from the official civil weddings page; not a photograph of this wedding.
+
+`wedding-tuxedos.jpg`: generated from the couple’s supplied card reference, using the built-in image generator. Text is composed separately and remains editable.

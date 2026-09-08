@@ -217,3 +217,83 @@
     "dress.sage": "Zelena kadulje"
   }
 };Object.keys(copy).forEach(function(lang){Object.assign(window.I18N[lang],copy[lang]);});})();
+
+/* Skansen branch copy. */
+(function(){var copy={
+  "en": {
+    "ceremony.venue": "Swedenborgs lusthus · Skansen",
+    "ceremony.address": "Djurgårdsslätten 49–51, Stockholm",
+    "ceremony.note": "We invite you all to share our ceremony at Swedenborgs lusthus, surrounded by the gardens of Skansen. The ceremony time will be confirmed nearer the day.",
+    "story.body3": "On 5 June 2027, we will begin our next chapter at Swedenborgs lusthus in Skansen. We would love to have you beside us — for our vows, a shared table, and a night of celebration.",
+    "day.map": "Find Swedenborgs lusthus",
+    "day.afterwards": "Join us for the ceremony at Swedenborgs lusthus",
+    "new.photoAlt": "Swedenborgs lusthus in the gardens of Skansen",
+    "skansen.time": "Time to be confirmed",
+    "skansen.entryTitle": "Your visit to Skansen",
+    "skansen.entry": "Bring your wedding invitation to the entrance. If you do not have a printed invitation, give our full names — Argyrios Kerezis and Tomislav Posavac — together with Swedenborgs lusthus and the confirmed ceremony time.",
+    "skansen.cardInfo": "Guests attending will receive a Swedish entrance card by email once the ceremony time is confirmed. The accompanying email will be in the language you select when replying.",
+    "skansen.preview": "Preview the Swedish card",
+    "skansen.queued": "Your entrance card is queued. We will email it once the ceremony time is confirmed.",
+    "skansen.unavailable": "Your RSVP is saved. Please contact us to arrange your entrance card.",
+    "skansen.cardLabel": "Swedish entrance card",
+    "skansen.timeNote": "The ceremony time is still to be confirmed.",
+    "ceremony.noteCeremony": "We invite you all to share our ceremony at Swedenborgs lusthus, surrounded by the gardens of Skansen. The ceremony time will be confirmed nearer the day."
+  },
+  "sv": {
+    "ceremony.venue": "Swedenborgs lusthus · Skansen",
+    "ceremony.address": "Djurgårdsslätten 49–51, Stockholm",
+    "ceremony.note": "Vi bjuder in er alla att dela vår vigsel vid Swedenborgs lusthus, omgivna av Skansens trädgårdar. Klockslaget meddelas längre fram.",
+    "story.body3": "Den 5 juni 2027 börjar vårt nästa kapitel vid Swedenborgs lusthus på Skansen. Vi vill ha er vid vår sida — när vi säger ja, samlas runt samma bord och firar långt in på kvällen.",
+    "day.map": "Hitta till Swedenborgs lusthus",
+    "day.afterwards": "Var med vid vigseln vid Swedenborgs lusthus",
+    "new.photoAlt": "Swedenborgs lusthus i Skansens trädgårdar",
+    "skansen.time": "Tid meddelas senare",
+    "skansen.entryTitle": "Ditt besök på Skansen",
+    "skansen.entry": "Ta med bröllopsinbjudan till entrén. Om du inte har en utskriven inbjudan, uppge våra fullständiga namn — Argyrios Kerezis och Tomislav Posavac — samt Swedenborgs lusthus och det bekräftade klockslaget för vigseln.",
+    "skansen.cardInfo": "Gäster som kommer får ett svenskt entrékort via e-post när vigseltiden är bekräftad. Meddelandet skrivs på det språk du väljer när du svarar.",
+    "skansen.preview": "Förhandsvisa det svenska kortet",
+    "skansen.queued": "Ditt entrékort väntar på utskick. Vi skickar det via e-post när vigseltiden är bekräftad.",
+    "skansen.unavailable": "Ditt svar är sparat. Kontakta oss för att få ditt entrékort.",
+    "skansen.cardLabel": "Svenskt entrékort",
+    "skansen.timeNote": "Klockslaget för vigseln meddelas senare.",
+    "ceremony.noteCeremony": "Vi bjuder in er alla att dela vår vigsel vid Swedenborgs lusthus, omgivna av Skansens trädgårdar. Klockslaget meddelas längre fram."
+  },
+  "el": {
+    "ceremony.venue": "Swedenborgs lusthus · Skansen",
+    "ceremony.address": "Djurgårdsslätten 49–51, Στοκχόλμη",
+    "ceremony.note": "Σας προσκαλούμε όλους να είστε δίπλα μας στην τελετή, στο Swedenborgs lusthus, ανάμεσα στους κήπους του Skansen. Η ώρα θα ανακοινωθεί αργότερα.",
+    "story.body3": "Στις 5 Ιουνίου 2027 θα ξεκινήσουμε το επόμενο κεφάλαιό μας στο Swedenborgs lusthus, στο Skansen. Θέλουμε να σας έχουμε κοντά μας — στο «ναι», στο τραπέζι και στη γιορτή που θα ακολουθήσει.",
+    "day.map": "Βρείτε το Swedenborgs lusthus",
+    "day.afterwards": "Ελάτε στην τελετή στο Swedenborgs lusthus",
+    "new.photoAlt": "Το Swedenborgs lusthus στους κήπους του Skansen",
+    "skansen.time": "Η ώρα θα ανακοινωθεί",
+    "skansen.entryTitle": "Η επίσκεψή σας στο Skansen",
+    "skansen.entry": "Έχετε μαζί σας την πρόσκληση του γάμου για την είσοδο. Αν δεν έχετε εκτυπωμένη πρόσκληση, αναφέρετε τα πλήρη ονόματά μας — Argyrios Kerezis και Tomislav Posavac — μαζί με τον χώρο Swedenborgs lusthus και την επιβεβαιωμένη ώρα της τελετής.",
+    "skansen.cardInfo": "Όσοι παρευρεθούν θα λάβουν μέσω email μια κάρτα εισόδου στα σουηδικά, μόλις επιβεβαιωθεί η ώρα της τελετής. Το συνοδευτικό μήνυμα θα είναι στη γλώσσα που επιλέγετε όταν απαντάτε.",
+    "skansen.preview": "Δείτε την κάρτα στα σουηδικά",
+    "skansen.queued": "Η κάρτα εισόδου σας περιμένει την επιβεβαίωση της ώρας. Θα σας τη στείλουμε μέσω email μόλις οριστεί.",
+    "skansen.unavailable": "Η απάντησή σας αποθηκεύτηκε. Επικοινωνήστε μαζί μας για την κάρτα εισόδου σας.",
+    "skansen.cardLabel": "Κάρτα εισόδου στα σουηδικά",
+    "skansen.timeNote": "Η ώρα της τελετής θα ανακοινωθεί αργότερα.",
+    "ceremony.noteCeremony": "Σας προσκαλούμε όλους να είστε δίπλα μας στην τελετή, στο Swedenborgs lusthus, ανάμεσα στους κήπους του Skansen. Η ώρα θα ανακοινωθεί αργότερα."
+  },
+  "hr": {
+    "ceremony.venue": "Swedenborgs lusthus · Skansen",
+    "ceremony.address": "Djurgårdsslätten 49–51, Stockholm",
+    "ceremony.note": "Pozivamo vas sve da budete uz nas na obredu kod Swedenborgs lusthus, okruženi vrtovima Skansena. Vrijeme obreda objavit ćemo naknadno.",
+    "story.body3": "Dana 5. lipnja 2027. započet ćemo naše sljedeće poglavlje kod Swedenborgs lusthus u Skansenu. Želimo vas uz sebe — kada izgovorimo svoje „da”, okupimo se za stolom i proslavimo do kasno u noć.",
+    "day.map": "Pronađite Swedenborgs lusthus",
+    "day.afterwards": "Pridružite nam se na obredu kod Swedenborgs lusthus",
+    "new.photoAlt": "Swedenborgs lusthus u vrtovima Skansena",
+    "skansen.time": "Vrijeme ćemo potvrditi",
+    "skansen.entryTitle": "Vaš posjet Skansenu",
+    "skansen.entry": "Ponesite pozivnicu za vjenčanje na ulaz. Ako nemate ispisanu pozivnicu, navedite naša puna imena — Argyrios Kerezis i Tomislav Posavac — te mjesto Swedenborgs lusthus i potvrđeno vrijeme obreda.",
+    "skansen.cardInfo": "Gosti koji dolaze dobit će e-poštom ulaznu karticu na švedskom kada potvrdimo vrijeme obreda. Popratna poruka bit će na jeziku koji odaberete prilikom odgovora.",
+    "skansen.preview": "Pogledajte karticu na švedskom",
+    "skansen.queued": "Vaša ulazna kartica čeka slanje. Poslat ćemo je e-poštom kada potvrdimo vrijeme obreda.",
+    "skansen.unavailable": "Vaš je odgovor spremljen. Javite nam se kako bismo vam poslali ulaznu karticu.",
+    "skansen.cardLabel": "Ulazna kartica na švedskom",
+    "skansen.timeNote": "Vrijeme obreda objavit ćemo naknadno.",
+    "ceremony.noteCeremony": "Pozivamo vas sve da budete uz nas na obredu kod Swedenborgs lusthus, okruženi vrtovima Skansena. Vrijeme obreda objavit ćemo naknadno."
+  }
+};Object.keys(copy).forEach(function(lang){Object.assign(window.I18N[lang],copy[lang]);});})();

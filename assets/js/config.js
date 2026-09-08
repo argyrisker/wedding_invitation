@@ -37,5 +37,7 @@ window.RSVP_CONFIG = {
   rsvpDeadline: "2026-12-31T23:59:59+01:00",
 
   /* Default language when the browser language is none of sv / el / en / hr */
-  defaultLang: "en"
+  defaultLang: "en",
+  venueVariant: "skansen",
+  ceremonyTime: "" // Local Stockholm HH:mm, fill when confirmed.
 };

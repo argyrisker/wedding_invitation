@@ -83,3 +83,12 @@
 }
 @media screen and (max-width:420px){.choices--wrap{grid-template-columns:minmax(0,1fr)}.rsvp-paper{padding:24px 16px}.chapter-tabs button{font-size:12px}.chapter-forward{font-size:12px}.reply-review h3{font-size:1.65rem}.hero__side{letter-spacing:.06em}}
 @media screen and (max-height:560px){.envelope__eyebrow{top:18px}.envelope__guest{top:50px;font-size:1rem}.envelope__stage{width:min(280px,55vw)}.envelope__hint{bottom:14px;font-size:12px}}
+
+/* Skansen ceremony and practical entrance information. */
+.hero__photo img{object-position:50% 50%;filter:saturate(.8)}
+.skansen-entry{border-top:1px solid var(--line);padding-top:28px;margin-top:28px}
+.contact-body .skansen-entry h2{font-size:1.6rem;margin-bottom:14px}
+.skansen-entry p{font-size:15px;line-height:1.8;max-width:640px;margin-bottom:16px}
+.skansen-entry .text-link{font-size:14px}
+.day-tabs .ceremony-time-pending>span:first-child,.ceremony-clock{font:400 1.05rem/1.4 var(--serif);display:block}
+#cardDeliveryStatus{font-size:14px;color:var(--muted);line-height:1.7;margin:15px 0 25px}

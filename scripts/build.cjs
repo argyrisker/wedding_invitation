@@ -26,6 +26,9 @@ for (const match of html.matchAll(/(?:src|href|srcset)="(assets\/[^"#]+)"/g)) {
 for (const file of fs.readdirSync(path.join(root, 'assets/js'))) {
   if (file.endsWith('.js')) new vm.Script(fs.readFileSync(path.join(root, 'assets/js', file), 'utf8'), { filename: file });
 }
+for (const file of ['Code.gs','EntranceCards.gs']) new vm.Script(fs.readFileSync(path.join(root,'google-apps-script',file),'utf8'),{filename:file});
+const card = fs.readFileSync(path.join(root,'assets/entrance-card.html'),'utf8');
+for (const match of card.matchAll(/src="([^"#:]+)"/g)) if (!fs.existsSync(path.join(root,'assets',match[1]))) throw new Error('Missing card asset: '+match[1]);
 fs.mkdirSync(output, { recursive: true });
 for (const file of ['index.html', '.nojekyll']) fs.copyFileSync(path.join(root, file), path.join(output, file));
 fs.cpSync(path.join(root, 'assets'), path.join(output, 'assets'), { recursive: true });

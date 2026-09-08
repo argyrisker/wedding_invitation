@@ -6,7 +6,7 @@
   var I18N  = window.I18N || {};
   var LANGS = ["sv", "el", "en", "hr"];
   var STORE_LANG = "rsvp.lang";
-  var STORE_SENT = "invite_new.answer:" + encodeURIComponent(new URLSearchParams(location.search).get("to") || new URLSearchParams(location.search).get("greet") || "guest");
+  var STORE_SENT = "invite_new.skansen.answer:" + encodeURIComponent(new URLSearchParams(location.search).get("to") || new URLSearchParams(location.search).get("greet") || "guest");
   var memoryAnswer = null;
   var sending = false;
   var feedback = null;
@@ -52,8 +52,8 @@
                        the same in every form.
      ?greet=Dear+Maria replaces the whole salutation verbatim, for anything
                        the templates cannot produce
-     ?inv=ceremony     swaps the seats-are-limited note for the ceremony
-                       welcome, for guests invited inside the City Hall
+     ?inv=ceremony     retained for old links; everyone is invited to the
+                       ceremony in the Skansen version
      Everything is written with textContent, so nothing in a URL can inject
      markup into the page. */
   var QS = new URLSearchParams(location.search);
@@ -61,7 +61,7 @@
     name:     (QS.get("to")    || "").trim().slice(0, 60),
     greet:    (QS.get("greet") || "").trim().slice(0, 120),
     gender:   (QS.get("g")     || "").trim().toLowerCase(),
-    ceremony: QS.get("inv") === "ceremony"
+    ceremony: CFG.venueVariant === "skansen" || QS.get("inv") === "ceremony"
   };
   if (GUEST.ceremony) {
     $$('[data-i18n="ceremony.note"]').forEach(function (el) {
@@ -94,6 +94,9 @@
       });
     });
 
+    if (CFG.ceremonyTime) {
+      $$('[data-i18n="skansen.time"]').forEach(function(el){el.textContent = CFG.ceremonyTime;});
+    }
     personalizeGreeting();
     var envelopeGuest = document.getElementById("envelopeGuest");
     if (envelopeGuest) envelopeGuest.textContent = (GUEST.name || GUEST.greet) ? $('[data-i18n="invite.title"]').textContent : "Argyrios & Tomislav";
@@ -285,6 +288,7 @@
       email:     form.elements.email.value.trim(),
       message:   form.elements.message.value.trim(),
       language:  lang,
+      venueVariant: CFG.venueVariant,
       submittedAt: new Date().toISOString()
     };
   }
@@ -323,6 +327,7 @@
         throw refused;
       }
       if (!payload || payload.ok !== true) throw new Error("unconfirmed");
+      return payload;
     }).catch(function (error) {
       if (!error.refused) error.unconfirmed = true;
       throw error;
@@ -374,7 +379,8 @@
     status.textContent = t("form.sending");
 
     send(data)
-      .then(function () {
+      .then(function (result) {
+        data.cardDelivery = result && result.cardDelivery || 'unavailable';
         memoryAnswer = data;
         feedback = null;
         store(STORE_SENT, JSON.stringify(data));
@@ -423,6 +429,8 @@
     var yes = saved.attending === "Yes";
     $("#thanksTitle").textContent = t(yes ? "thanks.yesTitle" : "thanks.noTitle");
     $("#thanksBody").textContent  = t(yes ? "thanks.yesBody"  : "thanks.noBody");
+    var cardStatus = $("#cardDeliveryStatus");
+    if (cardStatus) { cardStatus.hidden = !yes; cardStatus.textContent = t(saved.cardDelivery === "queued" ? "skansen.queued" : "skansen.unavailable"); }
     thanks.hidden = false;
     thanks.tabIndex = -1;
     form.hidden = true;
