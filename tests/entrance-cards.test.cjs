@@ -43,3 +43,17 @@ for(const language of ['en','sv','el','hr'])test(language+': email explains prin
 test('unsupported or inherited dictionary languages use English safely',()=>{const {c}=setup();for(const language of ['xx','constructor','__proto__'])assert.equal(c.cardLanguage(language),'en');});
 test('email queue and owner notification failures never turn a saved RSVP into failure',()=>{const {c}=setup();let saved=0;c.save=()=>{saved++;return {row:2,updated:false};};c.queueEntranceCard=()=>{throw Error('queue unavailable');};c.notify=()=>{throw Error('mail unavailable');};const r=c.doPost({parameter:guest()});assert.equal(saved,1);assert.equal(r.ok,true);assert.equal(r.cardDelivery,'unavailable');});
 test('invalid attendance and multi-recipient addresses are rejected before saving',()=>{const {c}=setup();let saved=0;c.save=()=>{saved++;};for(const data of [guest({attending:'Maybe'}),guest({email:'a@b.com,c@d.com'})])assert.equal(c.doPost({parameter:data}).ok,false);assert.equal(saved,0);});
+
+test('response distinguishes a waiting card, a sent card and an uncertain send',()=>{
+ const a=setup();assert.equal(a.c.queueEntranceCard(guest()),'waiting_confirmation');
+ a.c.ENTRANCE_CARD.enabled=true;a.c.ENTRANCE_CARD.ceremonyTime='14:00';assert.equal(a.c.queueEntranceCard(guest()),'queued');
+ a.c.processEntranceCards();assert.equal(a.c.queueEntranceCard(guest()),'sent');
+ a.c.ENTRANCE_CARD.ceremonyTime='14:30';assert.equal(a.c.queueEntranceCard(guest()),'queued');
+ a.setFail(true);a.c.processEntranceCards();assert.equal(a.c.queueEntranceCard(guest()),'uncertain');
+});
+test('owner email test does not enroll or mail queued guests while disabled',()=>{
+ const a=setup();a.c.ENTRANCE_CARD.ceremonyTime='14:00';a.c.queueEntranceCard(guest());a.c.sendEntranceCardTest();
+ assert.equal(a.sends.length,1);assert.equal(a.sends[0].to,a.c.ENTRANCE_CARD.replyTo);assert.match(a.sends[0].subject,/^TEST/);
+ assert.equal(a.sheets['Entrance cards'].rows[1][4],'pending');
+ a.c.ENTRANCE_CARD.enabled=true;assert.throws(()=>a.c.sendEntranceCardTest(),/Disable guest delivery/);
+});

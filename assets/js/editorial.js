@@ -66,8 +66,9 @@
       });
       return result;
     }
-    var ceremony = true;
-    var description = (ceremony ? ((window.RSVP_CONFIG || {}).ceremonyTime || t('skansen.time')) + ' — ' + t('ceremony.venue') : t('day.afterwards')) + '\n18:00 — ' + t('dinner.title') + '. ' + t('dinner.venue') + '\n' + t('day.timezone');
+    var time = (window.RSVP_CONFIG || {}).ceremonyTime;
+    var ceremonyTime = /^([01]\d|2[0-3]):[0-5]\d$/.test(time) ? time : t('skansen.time');
+    var description = ceremonyTime + ' — ' + t('ceremony.venue') + '\n18:00 — ' + t('dinner.title') + '. ' + t('dinner.venue') + '\n' + t('day.timezone');
     return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Argyrios and Tomislav//Wedding invitation//EN', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT', 'UID:argyrios-tomislav-20270605@invite-new', 'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''), 'DTSTART;VALUE=DATE:20270605', 'DTEND;VALUE=DATE:20270606', 'SUMMARY:' + escape('Argyrios & Tomislav — ' + t('hero.eyebrow')), 'LOCATION:' + escape(t('ceremony.venue') + ', ' + t('hero.city')), 'DESCRIPTION:' + escape(description), 'END:VEVENT', 'END:VCALENDAR'].map(fold).join('\r\n') + '\r\n';
   }
   document.getElementById('saveCalendar').addEventListener('click', function () {

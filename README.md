@@ -1,81 +1,48 @@
-# Skansen alternative — Swedenborgs lusthus
+# Argyrios and Tomislav — Skansen version
 
-This branch is the proposed venue change for 5 June 2027. All guests are invited to the ceremony; the time is to be confirmed. See [Skansen setup and email activation](SKANSEN-SETUP.md) before publishing or enabling card delivery. The original version stays on `main`.
+Alternative wedding invitation for **Swedenborgs lusthus, Skansen, 5 June 2027**. All guests are invited to the ceremony. The ceremony time is still to be confirmed; dinner remains at 18:00 with venue to be announced.
 
-The instructions below describe the original redesign and its hosting; the Skansen setup guide takes precedence for this branch.
+This version is on `skansen-ceremony` in `argyrisker/wedding_invitation`. The original version remains on `main`. Creating this branch does not publish it over the original website.
 
-# Argyrios & Tomislav — 5 June 2027
+## Features
 
-An editorial redesign of [the original invitation](https://github.com/argyrisker/invitation), built independently in **invite_new**. The original repository is untouched.
+Opening envelope, original colour palette, personalised greetings, Swedish/Greek/English/Croatian, interactive story chapters reflecting two years together, ceremony and dinner tabs, calendar download, mobile layout, formal dress code and seven colour swatches, and Google Sheets RSVP.
 
-Preserved: opening envelope, navy/cream/gold/brick/Aegean palette, Swedish/Greek/English/Croatian, personalised greetings, ceremony variants, countdown, dietary choices, hometown emblems, contact link and Google Sheets RSVP integration.
+The Skansen version adds the venue photograph, map, entrance and arrival instructions, a printable Swedish invitation card, and a queue for emails in the guest’s RSVP language. The editable Word card is delivered separately in the task.
 
-The revised invitation tells your story in three chapters, reflecting **two years together at the time of writing**, without inventing an anniversary date. Guests can tap, use arrow keys, or swipe through the chapters; explore the ceremony and dinner schedule; save a date-only calendar invitation; pull down the envelope seal; and review their RSVP before sending. All new copy and controls are translated into all four languages. Calendar downloads respect ceremony access and include no guest details.
+## Preview
 
-## Preview and hosting
-
-This is a static website with no runtime dependencies. Serve the directory with any static host, or run `python -m http.server 4173` and open `http://localhost:4173`.
-
-GitHub Pages: **Settings → Pages → Deploy from a branch → main → / (root)**. The expected address is `https://argyrisker.github.io/invite_new/` after Pages is enabled; the address in the code does not itself enable hosting.
+Run `npm run build`, then `python -m http.server 4173 --bind 127.0.0.1 --directory dist`. Open `http://127.0.0.1:4173/`. This address works only on your computer. Serve the generated `dist` directory when publishing the selected version.
 
 ## Personalised links
 
-Keep the original query parameters; change only `/invitation/` to `/invite_new/`.
+Add these parameters to the actual published website address:
 
 | Parameter | Meaning |
 | --- | --- |
-| `lang=sv`, `el`, `en`, `hr` | Swedish, Greek, English, Croatian |
-| `to=Maria` | Guest name in the greeting |
-| `g=f` | One woman; grammatical agreement in Greek/Croatian |
-| `g=m` | One man |
-| `g=fp` | Several women |
-| No `g` | Plural/mixed greeting |
-| `greet=...` | Exact custom greeting, displayed as literal text |
-| `inv=ceremony` | Welcome inside City Hall instead of the limited-seats message |
+| `lang=sv`, `el`, `en`, `hr` | Guest language |
+| `to=Maria` | Guest name in the salutation |
+| `g=f`, `g=m`, `g=fp` | Feminine, masculine, or several women; Greek/Croatian grammatical agreement |
+| No `g` | Plural/mixed salutation |
+| `greet=...` | Exact custom salutation, displayed as literal text |
+| `inv=ceremony` | Accepted for older links; all guests can attend the Skansen ceremony |
 
-Example: `https://argyrisker.github.io/invite_new/?lang=el&to=Maria&g=f&inv=ceremony`
+Example query: `?lang=el&to=Maria&g=f`. Language changes preserve the other guest parameters. Saved replies are isolated from the original version and by guest link. Each RSVP still represents one person and is updated by email address.
 
-Language changes preserve every guest parameter and update `lang` in the address. A guest name is not automatically split into RSVP first/last names because a link can address several people.
+## Google Sheets and card emails
 
-## Google Sheets
+The original Apps Script endpoint is retained. The RSVP fields are preserved, with `venueVariant=skansen` added to request card delivery. Existing deployments can save replies but cannot queue cards until updated.
 
-`assets/js/config.js` retains the **existing Apps Script `/exec` URL**, contact email, dates and default language. No replacement Google deployment is needed for the redesign.
+Follow [the installation and activation guide](SKANSEN-SETUP.md). Both `Code.gs` and `EntranceCards.gs` are required for the new feature. Emails stay disabled until the ceremony time is confirmed and an owner test has passed. A saved RSVP is not treated as failed when email delivery is unavailable or uncertain.
 
-The form sends the original fields: `firstName`, `lastName`, `attending`, `diet`, `allergies`, `email`, `message`, `language`, `submittedAt`. Dietary values remain in English for the existing Sheet. `google-apps-script/Code.gs` is unchanged, including its email-based updates.
+No live guest emails or Google Sheet test rows were sent during development. The local tests mock Google services; deployment permissions and the actual Google PDF require the owner test described in the guide.
 
-Success requires the script to return `{ "ok": true }`. Network/CORS failures and unreadable responses show an unconfirmed state and contact link. They never silently retry a POST. Explicit refusals show an error. The optional Google Form fallback remains, but its opaque response cannot confirm storage and therefore shows an unconfirmed state.
+## Editing and checks
 
-No test guests were submitted during development. `setup.html` remains an owner diagnostic: its button sends a real test response.
+Core translations: `assets/js/i18n.js`. Interactive and entrance translations: `assets/js/editorial-i18n.js`. Ceremony time: `assets/js/config.js` and the matching setting in `google-apps-script/EntranceCards.gs`. Keep both values synchronized.
 
-To configure a new deployment later, open your Sheet → Extensions → Apps Script, paste `google-apps-script/Code.gs`, deploy as a web app with **Execute as: Me** and **Who has access: Anyone**, then put the `/exec` URL in `assets/js/config.js`.
+Layout: `index.html`, `assets/css/editorial.css`, `assets/css/interactive.css`, `assets/css/mobile.css`. Printable card: `assets/entrance-card.html`. RSVP and interactions: `assets/js/app.js`, `assets/js/editorial.js`.
 
-## Editing
+Run `npm test` and `npm run build`. The tests cover RSVP, localisation, personalization, interactions, calendar and card delivery failure/retry cases. The build validates translations, scripts and assets. Site browser visual testing has not been performed; the Word card was rendered and inspected.
 
-- Wedding copy: `assets/js/i18n.js`.
-- New interface translations: `assets/js/editorial-i18n.js`.
-- Layout and styling: `index.html`, `assets/css/editorial.css`.
-- Preserved envelope styling: `assets/css/envelope.css`.
-- RSVP/personalisation: `assets/js/app.js`.
-- Envelope/navigation: `assets/js/envelope.js`, `assets/js/editorial.js`.
-
-English fallback text in the HTML remains readable if scripts fail; update it alongside translation changes.
-
-The footer reopens the envelope. A new storage key lets visitors see it even after opening the old invitation. Reduced-motion guests get an immediate opening. Saved answers are scoped to `to` or the custom greeting, independently from the old site. People sharing the exact same link can use **Change my answer** or receive individual links.
-
-## Development checks
-
-There are no runtime packages. `jsdom` is a development-only dependency for functional tests that never contact Google.
-
-```text
-pnpm install --frozen-lockfile
-pnpm test
-pnpm build
-```
-
-The build checks script syntax, translations and assets, then copies guest-facing files to `dist/`. The 33 tests cover language selection, gendered/custom greetings, ceremony variants, literal text handling, validation, exact RSVP fields, confirmed/unconfirmed/error responses, duplicate-submit protection, storage isolation, editing, keyboard/reduced-motion envelope opening, chapter gestures, schedule navigation, RSVP review and calendar export.
-
-Browser visual testing and a real Sheet write were not performed.
-
-## Photography
-
-City Hall: SuperSwede88, public domain, via Wikimedia Commons. Source and details are in `assets/img/CREDITS.md`. The original hometown emblems, envelope and line drawing are retained.
+Photograph and illustration credits are in [assets/img/CREDITS.md](assets/img/CREDITS.md). [Skansen’s wedding and entrance guidance](https://www.skansen.se/se-och-gora/boka-en-upplevelse/brollop/borgerlig-vigsel/) is the source for arrival information.

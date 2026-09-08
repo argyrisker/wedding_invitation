@@ -92,3 +92,5 @@
 .skansen-entry .text-link{font-size:14px}
 .day-tabs .ceremony-time-pending>span:first-child,.ceremony-clock{font:400 1.05rem/1.4 var(--serif);display:block}
 #cardDeliveryStatus{font-size:14px;color:var(--muted);line-height:1.7;margin:15px 0 25px}
+
+.skansen-source{display:block;font-size:12px;color:var(--muted);margin-top:15px}.thanks #thanksCardLink{display:inline-block;max-width:100%;margin:0 0 22px;overflow-wrap:break-word}.day-tabs .ceremony-time-pending{min-width:0}.day-tabs .ceremony-time-pending>span:first-child{overflow-wrap:break-word}

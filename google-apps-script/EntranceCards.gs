@@ -49,9 +49,8 @@ var CARD_EMAIL_COPY = {
   }
 };
 
-function cardReady() {
-  return ENTRANCE_CARD.enabled === true && /^([01]\d|2[0-3]):[0-5]\d$/.test(ENTRANCE_CARD.ceremonyTime);
-}
+function cardTimeConfirmed() { return /^([01]\d|2[0-3]):[0-5]\d$/.test(ENTRANCE_CARD.ceremonyTime); }
+function cardReady() { return ENTRANCE_CARD.enabled === true && cardTimeConfirmed(); }
 function cardVersion() { return [ENTRANCE_CARD.date, ENTRANCE_CARD.ceremonyTime, ENTRANCE_CARD.venue].join('|'); }
 function cardQueue() {
   var ss = SpreadsheetApp.openById(ENTRANCE_CARD.spreadsheetId);
@@ -75,7 +74,10 @@ function queueEntranceCard(data) {
   else if (status === 'cancelled') status = 'pending';
   var values = [email, cardCell(data.firstName), cardCell(data.lastName), cardLanguage(data.language), status, old[5] || '', new Date(), old[7] || ''];
   sheet.getRange(target || sheet.getLastRow() + 1, 1, 1, CARD_COLUMNS.length).setValues([values]);
-  return data.attending === 'Yes' ? 'queued' : 'not_requested';
+  if (data.attending !== 'Yes') return 'not_requested';
+  if (status === 'uncertain') return 'uncertain';
+  if (status === 'sent' && old[5] === cardVersion()) return 'sent';
+  return cardReady() ? 'queued' : 'waiting_confirmation';
 }
 function entranceMail(data) {
   var copy = CARD_EMAIL_COPY[cardLanguage(data.language)];
@@ -83,7 +85,7 @@ function entranceMail(data) {
   return {subject: copy.subject, body: [hello, copy.intro, copy.instructions, copy.language, copy.closing].join('\n\n')};
 }
 function entrancePdf() {
-  if (!cardReady()) throw new Error('Confirm the ceremony time before creating entrance cards.');
+  if (!cardTimeConfirmed()) throw new Error('Confirm the ceremony time before creating entrance cards.');
   var doc = DocumentApp.create('Wedding invitation card'), id = doc.getId();
   try {
     var body = doc.getBody(); body.clear();
@@ -97,7 +99,7 @@ function entrancePdf() {
     line(ENTRANCE_CARD.couple[0], 23, 3);
     line('&', 23, 3, true);
     line(ENTRANCE_CARD.couple[1], 23, 18);
-    line('bjuder in dig att fira vårt bröllop', 13, 20, true);
+    line('Vi bjuder in dig att fira vårt bröllop', 13, 20, true);
     line('Datum: ' + ENTRANCE_CARD.date, 14, 7);
     line('Tid: kl. ' + ENTRANCE_CARD.ceremonyTime, 14, 20);
     line(ENTRANCE_CARD.venue, 17, 4);
@@ -153,4 +155,16 @@ function installEntranceCardTrigger() {
   cardQueue();
   var exists = ScriptApp.getProjectTriggers().some(function(t){return t.getHandlerFunction() === 'processEntranceCards';});
   if (!exists) ScriptApp.newTrigger('processEntranceCards').timeBased().everyMinutes(1).create();
+}
+
+/** Owner-only editor helpers, never exposed by the web-app endpoints. */
+function previewEntranceCard() {
+  var file = DriveApp.createFile(entrancePdf());
+  console.log('Private card preview: ' + file.getUrl());
+  return file.getUrl();
+}
+function sendEntranceCardTest() {
+  if (ENTRANCE_CARD.enabled) throw new Error('Disable guest delivery while testing.');
+  var message = entranceMail({firstName:'Argyrios', language:'en'});
+  MailApp.sendEmail({to:ENTRANCE_CARD.replyTo,subject:'TEST — '+message.subject,body:message.body,attachments:[entrancePdf()],name:'Argyrios & Tomislav'});
 }

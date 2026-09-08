@@ -264,3 +264,19 @@ test('declining never displays a card delivery promise',async()=>{
  try{submit(dom,fill(dom,'No'));await flush();assert.equal(dom.window.document.getElementById('cardDeliveryStatus').hidden,true);}
  finally{dom.window.close();}
 });
+
+for(const [status,key] of Object.entries({waiting_confirmation:'skansen.waiting',sent:'skansen.sent',uncertain:'skansen.uncertain'}))test(status+': delivery status stays accurate across language changes',async()=>{
+ const dom=load('?lang=en',{fetch:async()=>({ok:true,json:async()=>({ok:true,cardDelivery:status})})});
+ try{submit(dom,fill(dom));await flush();const d=dom.window.document;
+ assert.equal(d.getElementById('cardDeliveryStatus').textContent,dom.window.I18N.en[key]);assert.equal(d.getElementById('thanksCardLink').hidden,false);
+ d.querySelector('[data-lang=el]').click();assert.equal(d.getElementById('cardDeliveryStatus').textContent,dom.window.I18N.el[key]);
+ }finally{dom.window.close();}
+});
+test('invalid configured time is never shown in the invitation or calendar',()=>{
+ const dom=load('?lang=en',{config:{ceremonyTime:'25:99'}});
+ try{assert.equal(dom.window.document.querySelector('[data-i18n="skansen.time"]').textContent,dom.window.I18N.en['skansen.time']);assert.ok(!dom.window.InvitationExperience.calendarText().includes('25:99'));}
+ finally{dom.window.close();}
+});
+test('Skansen translations contain no old venue or restricted-ceremony wording',()=>{
+ const dom=load();try{const text=JSON.stringify(dom.window.I18N);assert.ok(!/City Hall|stadshus|vijećnic|Δημαρχ|Hantverkargatan|Mälaren/.test(text));}finally{dom.window.close();}
+});

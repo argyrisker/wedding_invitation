@@ -94,7 +94,7 @@
       });
     });
 
-    if (CFG.ceremonyTime) {
+    if (/^([01]\d|2[0-3]):[0-5]\d$/.test(CFG.ceremonyTime)) {
       $$('[data-i18n="skansen.time"]').forEach(function(el){el.textContent = CFG.ceremonyTime;});
     }
     personalizeGreeting();
@@ -430,7 +430,13 @@
     $("#thanksTitle").textContent = t(yes ? "thanks.yesTitle" : "thanks.noTitle");
     $("#thanksBody").textContent  = t(yes ? "thanks.yesBody"  : "thanks.noBody");
     var cardStatus = $("#cardDeliveryStatus");
-    if (cardStatus) { cardStatus.hidden = !yes; cardStatus.textContent = t(saved.cardDelivery === "queued" ? "skansen.queued" : "skansen.unavailable"); }
+    if (cardStatus) {
+      cardStatus.hidden = !yes;
+      var deliveryKeys = {queued:'skansen.queued', waiting_confirmation:'skansen.waiting', sent:'skansen.sent', uncertain:'skansen.uncertain'};
+      cardStatus.textContent = t(Object.prototype.hasOwnProperty.call(deliveryKeys, saved.cardDelivery) ? deliveryKeys[saved.cardDelivery] : 'skansen.unavailable');
+    }
+    var cardLink = $('#thanksCardLink');
+    if (cardLink) cardLink.hidden = !yes;
     thanks.hidden = false;
     thanks.tabIndex = -1;
     form.hidden = true;
