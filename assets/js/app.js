@@ -111,7 +111,7 @@
     if (contact) {
       contact.textContent = t("info.contact");
       contact.href = "mailto:" + (CFG.contactEmail || "") +
-        "?subject=" + encodeURIComponent("Argyrios & Tomislav · 05.06.2027");
+        "?subject=" + encodeURIComponent("Argyrios & Tomislav · 19.06.2027");
     }
 
     linkPlaces();
@@ -162,7 +162,7 @@
   });
 
   /* ── countdown ─────────────────────────────────────────────────────── */
-  var target = new Date(CFG.weddingDate || "2027-06-05T18:00:00+02:00").getTime();
+  var target = new Date(CFG.weddingDate || "2027-06-19T15:00:00+02:00").getTime();
 
   function tickCountdown() {
     var box = $("#countdown");
