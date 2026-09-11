@@ -1,6 +1,6 @@
 # Argyrios and Tomislav — Skansen version
 
-Alternative wedding invitation for **Swedenborgs lusthus, Skansen, 5 June 2027**. All guests are invited to the ceremony. The ceremony time is still to be confirmed; dinner remains at 18:00 with venue to be announced.
+Alternative wedding invitation for **Swedenborgs lusthus, Skansen, 19 June 2027**. All guests are invited to the ceremony. The ceremony time is still to be confirmed; dinner remains at 18:00 with venue to be announced.
 
 This version is on `skansen-ceremony` in `argyrisker/wedding_invitation`. The original version remains on `main`. Creating this branch does not publish it over the original website.
 
