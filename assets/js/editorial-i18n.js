@@ -30,7 +30,7 @@
     "story.title2": "Different beginnings. A life together.",
     "story.title3": "And now, we say yes.",
     "story.body2": "One of us grew up in Serres, the other in Virovitica. Our beginnings are in Greece and Croatia; the life we are building together is here in Stockholm. Different places, languages and traditions, brought together in the place we call home.",
-    "story.body3": "On 5 June 2027, we will begin our next chapter at Swedenborgs lusthus in Skansen. We would love to have you beside us — for our vows, a shared table, and a night of celebration.",
+    "story.body3": "On 19 June 2027, we will begin our next chapter at Swedenborgs lusthus in Skansen. We would love to have you beside us — for our vows, a shared table, and a night of celebration.",
     "story.previous": "Previous chapter",
     "story.forward": "Next chapter",
     "story.hint": "Choose a chapter, or swipe to turn the page",
@@ -74,7 +74,7 @@
     "skansen.waiting": "Your entrance card is reserved. We will email it once the ceremony details are confirmed.",
     "skansen.sent": "Your entrance card has already been sent. Please check your inbox and spam folder, or contact us if you cannot find it.",
     "skansen.uncertain": "Your RSVP is saved, but we need to check the card’s email delivery. Please contact us; you do not need to submit your RSVP again.",
-    "skansen.arrival": "You are welcome to enter Skansen from 10:00 on the wedding day. Access to the ceremony area begins no earlier than 15 minutes before the ceremony.",
+    "skansen.arrival": "You are welcome to enter Skansen from 14:45 on the wedding day. Access to the ceremony area begins no earlier than 15 minutes before the ceremony.",
     "skansen.source": "Skansen’s guest information"
   },
   "sv": {
@@ -107,7 +107,7 @@
     "story.title2": "Olika början. Ett gemensamt liv.",
     "story.title3": "Och nu säger vi ja.",
     "story.body2": "En av oss växte upp i Serres, den andre i Virovitica. Våra rötter finns i Grekland och Kroatien; livet vi bygger tillsammans finns här i Stockholm. Olika platser, språk och traditioner möts i staden som vi nu kallar vårt hem.",
-    "story.body3": "Den 5 juni 2027 börjar vårt nästa kapitel vid Swedenborgs lusthus på Skansen. Vi vill ha er vid vår sida — när vi säger ja, samlas runt samma bord och firar långt in på kvällen.",
+    "story.body3": "Den 19 juni 2027 börjar vårt nästa kapitel vid Swedenborgs lusthus på Skansen. Vi vill ha er vid vår sida — när vi säger ja, samlas runt samma bord och firar långt in på kvällen.",
     "story.previous": "Föregående kapitel",
     "story.forward": "Nästa kapitel",
     "story.hint": "Välj ett kapitel eller svep för att vända blad",
@@ -151,7 +151,7 @@
     "skansen.waiting": "Ditt entrékort är reserverat. Vi skickar det när vigseluppgifterna är bekräftade.",
     "skansen.sent": "Ditt entrékort har redan skickats. Titta i inkorgen och skräpposten, eller kontakta oss om du inte hittar det.",
     "skansen.uncertain": "Ditt svar är sparat, men vi behöver kontrollera kortets e-postutskick. Kontakta oss; du behöver inte svara på inbjudan igen.",
-    "skansen.arrival": "Du är välkommen in på Skansen från kl. 10.00 på bröllopsdagen. Insläpp till vigselplatsen sker tidigast 15 minuter före vigseln.",
+    "skansen.arrival": "Du är välkommen in på Skansen från kl. 14.45 på bröllopsdagen. Insläpp till vigselplatsen sker tidigast 15 minuter före vigseln.",
     "skansen.source": "Skansens information för gäster"
   },
   "el": {
@@ -184,7 +184,7 @@
     "story.title2": "Διαφορετικές αφετηρίες. Μια κοινή ζωή.",
     "story.title3": "Και τώρα, λέμε το «ναι».",
     "story.body2": "Ο ένας μας μεγάλωσε στις Σέρρες, ο άλλος στη Βιροβίτιτσα. Οι ρίζες μας βρίσκονται στην Ελλάδα και την Κροατία· η ζωή που χτίζουμε μαζί, εδώ στη Στοκχόλμη. Διαφορετικοί τόποι, γλώσσες και παραδόσεις συναντιούνται στο μέρος που πια λέμε σπίτι μας.",
-    "story.body3": "Στις 5 Ιουνίου 2027 θα ξεκινήσουμε το επόμενο κεφάλαιό μας στο Swedenborgs lusthus, στο Skansen. Θέλουμε να σας έχουμε κοντά μας — στο «ναι», στο τραπέζι και στη γιορτή που θα ακολουθήσει.",
+    "story.body3": "Στις 19 Ιουνίου 2027 θα ξεκινήσουμε το επόμενο κεφάλαιό μας στο Swedenborgs lusthus, στο Skansen. Θέλουμε να σας έχουμε κοντά μας — στο «ναι», στο τραπέζι και στη γιορτή που θα ακολουθήσει.",
     "story.previous": "Προηγούμενο κεφάλαιο",
     "story.forward": "Επόμενο κεφάλαιο",
     "story.hint": "Επιλέξτε κεφάλαιο ή σύρετε για να γυρίσετε τη σελίδα",
@@ -228,7 +228,7 @@
     "skansen.waiting": "Η κάρτα εισόδου σας έχει κρατηθεί. Θα τη στείλουμε μόλις επιβεβαιωθούν τα στοιχεία της τελετής.",
     "skansen.sent": "Η κάρτα εισόδου σας έχει ήδη σταλεί. Ελέγξτε τα εισερχόμενα και την ανεπιθύμητη αλληλογραφία ή επικοινωνήστε μαζί μας αν δεν τη βρίσκετε.",
     "skansen.uncertain": "Η απάντησή σας αποθηκεύτηκε, αλλά χρειάζεται να ελέγξουμε την αποστολή της κάρτας. Επικοινωνήστε μαζί μας· δεν χρειάζεται να απαντήσετε ξανά στην πρόσκληση.",
-    "skansen.arrival": "Μπορείτε να μπείτε στο Skansen από τις 10:00 την ημέρα του γάμου. Η είσοδος στον χώρο της τελετής επιτρέπεται το νωρίτερο 15 λεπτά πριν από την έναρξή της.",
+    "skansen.arrival": "Μπορείτε να μπείτε στο Skansen από τις 14:45 την ημέρα του γάμου. Η είσοδος στον χώρο της τελετής επιτρέπεται το νωρίτερο 15 λεπτά πριν από την έναρξή της.",
     "skansen.source": "Πληροφορίες του Skansen για τους καλεσμένους"
   },
   "hr": {
@@ -261,7 +261,7 @@
     "story.title2": "Različiti počeci. Zajednički život.",
     "story.title3": "A sada kažemo „da”.",
     "story.body2": "Jedan od nas odrastao je u Serresu, drugi u Virovitici. Naši su korijeni u Grčkoj i Hrvatskoj, a život koji gradimo zajedno ovdje je u Stockholmu. Različita mjesta, jezici i tradicije susreću se u gradu koji sada zovemo svojim domom.",
-    "story.body3": "Dana 5. lipnja 2027. započet ćemo naše sljedeće poglavlje kod Swedenborgs lusthus u Skansenu. Želimo vas uz sebe — kada izgovorimo svoje „da”, okupimo se za stolom i proslavimo do kasno u noć.",
+    "story.body3": "Dana 19 lipnja 2027. započet ćemo naše sljedeće poglavlje kod Swedenborgs lusthus u Skansenu. Želimo vas uz sebe — kada izgovorimo svoje „da”, okupimo se za stolom i proslavimo do kasno u noć.",
     "story.previous": "Prethodno poglavlje",
     "story.forward": "Sljedeće poglavlje",
     "story.hint": "Odaberite poglavlje ili prijeđite prstom za sljedeću stranicu",
@@ -305,7 +305,7 @@
     "skansen.waiting": "Vaša je ulazna kartica rezervirana. Poslat ćemo je kada potvrdimo detalje obreda.",
     "skansen.sent": "Vaša je ulazna kartica već poslana. Provjerite pristiglu i neželjenu poštu ili nam se javite ako je ne možete pronaći.",
     "skansen.uncertain": "Vaš je odgovor spremljen, ali trebamo provjeriti slanje kartice. Javite nam se; ne morate ponovno odgovarati na pozivnicu.",
-    "skansen.arrival": "Na dan vjenčanja možete ući u Skansen od 10:00. Ulazak na mjesto obreda moguć je najranije 15 minuta prije početka.",
+    "skansen.arrival": "Na dan vjenčanja možete ući u Skansen od 14:45. Ulazak na mjesto obreda moguć je najranije 15 minuta prije početka.",
     "skansen.source": "Skansenove informacije za goste"
   }
 };Object.keys(copy).forEach(function(lang){Object.assign(window.I18N[lang],copy[lang]);});})();
