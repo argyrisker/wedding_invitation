@@ -33,7 +33,7 @@ window.RSVP_CONFIG = {
   contactEmail: "argyker@gmail.com",
 
   /* Event dates. Month is 1-12. Time is local Stockholm time. */
-  weddingDate:  "2027-06-05T18:00:00+02:00",
+  weddingDate:  "2027-06-19T15:00:00+02:00",
   rsvpDeadline: "2026-12-31T23:59:59+01:00",
 
   /* Default language when the browser language is none of sv / el / en / hr */
