@@ -5,7 +5,7 @@
 var ENTRANCE_CARD = {
   enabled: false,
   ceremonyTime: '', // Confirmed Stockholm local time HH:mm. Never a placeholder.
-  date: '5 juni 2027',
+  date: '19 juni 2027',
   couple: ['ARGYRIOS KEREZIS', 'TOMISLAV POSAVAC'],
   venue: 'SWEDENBORGS LUSTHUS',
   site: 'SKANSEN',
@@ -27,7 +27,7 @@ var CARD_EMAIL_COPY = {
     subject: 'Din bröllopsinbjudan för entrén till Skansen',
     hello: 'Hej {name},',
     intro: 'Vad glada vi är att du kommer och firar med oss! Ditt svenska inbjudningskort finns bifogat som PDF.',
-    instructions: 'Skriv gärna ut kortet och ta med det till Skansens entré den 5 juni 2027. Om du saknar en utskrift, uppge våra fullständiga namn, Swedenborgs lusthus och vigseltiden som står på kortet. Spara gärna en kopia i mobilen så att du har uppgifterna till hands.',
+    instructions: 'Skriv gärna ut kortet och ta med det till Skansens entré den 19 juni 2027. Om du saknar en utskrift, uppge våra fullständiga namn, Swedenborgs lusthus och vigseltiden som står på kortet. Spara gärna en kopia i mobilen så att du har uppgifterna till hands.',
     language: 'Kortet är på svenska för att underlätta för entrépersonalen. Det här meddelandet är på språket du valde när du svarade.',
     closing: 'Med kärlek,\nArgyrios & Tomislav'
   },
@@ -35,7 +35,7 @@ var CARD_EMAIL_COPY = {
     subject: 'Η πρόσκλησή σου για την είσοδο στο Skansen',
     hello: 'Γεια σου {name},',
     intro: 'Χαιρόμαστε πολύ που θα γιορτάσεις μαζί μας! Σου επισυνάπτουμε την κάρτα της πρόσκλησης στα σουηδικά, σε μορφή PDF.',
-    instructions: 'Εκτύπωσε την κάρτα και έχε τη μαζί σου στην είσοδο του Skansen στις 5 Ιουνίου 2027. Αν δεν έχεις εκτυπωμένο αντίγραφο, ανάφερε στο προσωπικό τα πλήρη ονόματά μας, τον χώρο Swedenborgs lusthus και την ώρα της τελετής που αναγράφεται στην κάρτα. Αποθήκευσέ τη και στο κινητό σου, για να έχεις εύκολα διαθέσιμα τα στοιχεία.',
+    instructions: 'Εκτύπωσε την κάρτα και έχε τη μαζί σου στην είσοδο του Skansen στις 19 Ιουνίου 2027. Αν δεν έχεις εκτυπωμένο αντίγραφο, ανάφερε στο προσωπικό τα πλήρη ονόματά μας, τον χώρο Swedenborgs lusthus και την ώρα της τελετής που αναγράφεται στην κάρτα. Αποθήκευσέ τη και στο κινητό σου, για να έχεις εύκολα διαθέσιμα τα στοιχεία.',
     language: 'Η κάρτα είναι στα σουηδικά για τη διευκόλυνση του προσωπικού στην είσοδο. Το μήνυμα αυτό είναι στη γλώσσα που επέλεξες όταν απάντησες.',
     closing: 'Με αγάπη,\nΑργύρης & Τόμισλαβ'
   },
@@ -43,7 +43,7 @@ var CARD_EMAIL_COPY = {
     subject: 'Tvoja pozivnica za ulaz u Skansen',
     hello: 'Pozdrav, {name}!',
     intro: 'Jako nam je drago što ćeš slaviti s nama! U privitku je tvoja pozivnica na švedskom, u PDF formatu.',
-    instructions: 'Ispiši karticu i ponesi je na ulaz u Skansen 5. lipnja 2027. Ako nemaš ispisanu kopiju, osoblju navedi naša puna imena, mjesto Swedenborgs lusthus i vrijeme obreda navedeno na kartici. Spremi kopiju i na mobitel kako bi ti podaci bili pri ruci.',
+    instructions: 'Ispiši karticu i ponesi je na ulaz u Skansen 19. lipnja 2027. Ako nemaš ispisanu kopiju, osoblju navedi naša puna imena, mjesto Swedenborgs lusthus i vrijeme obreda navedeno na kartici. Spremi kopiju i na mobitel kako bi ti podaci bili pri ruci.',
     language: 'Kartica je na švedskom kako bi olakšala ulazak osoblju na ulazu. Ova je poruka na jeziku koji si odabrao/la pri odgovoru.',
     closing: 'S ljubavlju,\nArgyrios i Tomislav'
   }
